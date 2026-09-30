@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { INITIAL_ISSUES, CROSS_BRICS_SIGNALS } from '../data/mockData';
 import { Issue, IssueCategory, IssueStatus, CitizenReportSubmission, BRICSSignal } from '../types';
+
+export type ThemeMode = 'light' | 'dark';
 
 interface ToastItem {
   id: string;
@@ -14,6 +16,8 @@ interface ToastItem {
 }
 
 interface AppContextType {
+  isLoading: boolean;
+  theme: ThemeMode;
   issues: Issue[];
   selectedIssue: Issue | null;
   selectedIssueId: string | null;
@@ -50,12 +54,13 @@ interface AppContextType {
   changeIssueStatus: (issueId: string, newStatus: IssueStatus) => void;
   showToast: (message: string, type?: 'success' | 'info' | 'warning') => void;
   dismissToast: (id: string) => void;
+  toggleTheme: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [issues, setIssues] = useState<Issue[]>(INITIAL_ISSUES);
+  const [issues, setIssues] = useState<Issue[]>([]);
   const [selectedIssueId, setSelectedIssueId] = useState<string | null>(null);
   const [activeView, setActiveView] = useState<'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console'>('home');
   const [govConsoleSubTab, setGovConsoleSubTab] = useState<'overview' | 'map' | 'clusters' | 'briefs' | 'cross-brics' | 'responses' | 'analytics'>('overview');
@@ -69,37 +74,77 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [activeAssignIssue, setActiveAssignIssue] = useState<Issue | null>(null);
   const [userConfirmations, setUserConfirmations] = useState<Record<string, 'experienced' | 'not_affected' | null>>({});
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const [bricsSignals] = useState<BRICSSignal[]>(CROSS_BRICS_SIGNALS);
+  const [bricsSignals, setBricsSignals] = useState<BRICSSignal[]>([]);
 
   // Default citizen submitted reports
-  const [userReports, setUserReports] = useState<CitizenReportSubmission[]>([
-    {
-      id: 'rep-user-01',
-      issueId: 'issue-energy-01',
-      category: 'energy',
-      title: 'Power Outage & Delayed Gas Refill',
-      evidenceType: 'image',
-      evidenceContent: 'Substation meter box tripping photograph',
-      location: 'Anna Nagar West, Chennai',
-      timestamp: 'Today, 08:30 IST',
-      status: 'Under Review',
-      groupedWithCount: 1248,
-      privacyProtected: true,
-    },
-    {
-      id: 'rep-user-02',
-      issueId: 'issue-water-02',
-      category: 'water',
-      title: 'Low Tap Water Pressure on 2nd Floor',
-      evidenceType: 'text',
-      evidenceContent: 'Pressure meter showing 0.4 bar instead of normal 1.8 bar',
-      location: 'Kilpauk Garden, Chennai',
-      timestamp: 'Yesterday, 14:15 IST',
-      status: 'Action in Progress',
-      groupedWithCount: 640,
-      privacyProtected: true,
-    },
-  ]);
+  const [userReports, setUserReports] = useState<CitizenReportSubmission[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    try {
+      const stored = localStorage.getItem('ld-theme');
+      if (stored === 'light' || stored === 'dark') return stored;
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ld-theme', next);
+    } catch {
+      /* storage unavailable — theme still toggles for the session */
+    }
+    showToast(next === 'dark' ? 'Switched to Dark color grade' : 'Switched to Light color grade', 'info');
+  };
+
+  // Try to fetch dynamic data from configured API endpoints. Falls back to mock data.
+  useEffect(() => {
+    const base = import.meta.env.VITE_API_BASE || '';
+    setIsLoading(true);
+
+    const fetchJson = async (path: string) => {
+      try {
+        const res = await fetch(base + path);
+        if (!res.ok) throw new Error('bad');
+        return await res.json();
+      } catch (e) {
+        return null;
+      }
+    };
+
+    (async () => {
+      const [issuesRes, bricsRes, reportsRes] = await Promise.all([
+        fetchJson('/api/issues'),
+        fetchJson('/api/brics'),
+        fetchJson('/api/reports'),
+      ]);
+
+      if (issuesRes && Array.isArray(issuesRes)) {
+        setIssues(issuesRes);
+      } else {
+        setIssues(INITIAL_ISSUES);
+      }
+
+      if (bricsRes && Array.isArray(bricsRes)) {
+        setBricsSignals(bricsRes);
+      } else {
+        setBricsSignals(CROSS_BRICS_SIGNALS);
+      }
+
+      if (reportsRes && Array.isArray(reportsRes)) {
+        setUserReports(reportsRes);
+      } else {
+        setUserReports([]);
+      }
+
+      setIsLoading(false);
+    })();
+  }, []);
 
   const showToast = (message: string, type: 'success' | 'info' | 'warning' = 'success') => {
     const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`;
@@ -301,6 +346,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   return (
     <AppContext.Provider
       value={{
+        isLoading,
+        theme,
         issues,
         selectedIssue,
         selectedIssueId,
@@ -336,6 +383,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         changeIssueStatus,
         showToast,
         dismissToast,
+        toggleTheme,
       }}
     >
       {children}

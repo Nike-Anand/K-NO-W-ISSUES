@@ -43,7 +43,7 @@ export const EvidenceGalleryView: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8F8FC] pb-20">
+    <div className="min-h-screen themed-page pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
         {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
@@ -52,16 +52,16 @@ export const EvidenceGalleryView: React.FC = () => {
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Cryptographic Anonymization Feed</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight t-ink">
               Sanitized Evidence Gallery
             </h1>
-            <p className="mt-2 text-sm text-neutral-600 max-w-2xl">
+            <p className="mt-2 text-sm t-ink-2 max-w-2xl">
               Public proof assets submitted by citizens. Facial biometric vectors, vehicular registrations, and residential PII are stripped prior to public availability.
             </p>
           </div>
 
           {/* Filter tabs */}
-          <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-neutral-200/80 shadow-2xs text-xs">
+          <div className="flex items-center gap-1 themed-card p-1 rounded-xl border b-skin-strong shadow-2xs text-xs">
             {(['all', 'image', 'voice'] as const).map((type) => (
               <button
                 key={type}
@@ -69,7 +69,7 @@ export const EvidenceGalleryView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg font-semibold capitalize transition-all ${
                   filterType === type
                     ? 'bg-[#6D4AFF] text-white shadow-xs'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                    : 't-ink-2 hover:t-ink'
                 }`}
               >
                 {type === 'all' ? 'All Evidence' : type === 'image' ? 'Photos' : 'Voice Notes'}
@@ -84,20 +84,20 @@ export const EvidenceGalleryView: React.FC = () => {
             <div
               key={item.id}
               onClick={() => setActiveLightbox(item)}
-              className="bg-white rounded-2xl border border-neutral-200/80 overflow-hidden shadow-xs hover:shadow-md hover:border-[#6D4AFF]/50 transition-all cursor-pointer flex flex-col justify-between group"
+              className="themed-card rounded-2xl border b-skin-strong overflow-hidden shadow-xs hover:shadow-md hover:border-[#6D4AFF]/50 transition-all cursor-pointer flex flex-col justify-between group card-lift"
             >
               {/* Asset Visual Container */}
-              <div className="relative h-48 bg-slate-100 flex items-center justify-center p-4 border-b border-neutral-100 overflow-hidden">
+              <div className="relative h-48 bg-slate-100 flex items-center justify-center p-4 border-b b-skin overflow-hidden">
                 {/* Visual Asset Simulation */}
                 {item.type === 'voice' ? (
                   <div className="text-center space-y-2">
                     <div className="w-14 h-14 rounded-full bg-[#6D4AFF]/10 text-[#6D4AFF] mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Volume2 className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-mono font-bold text-neutral-800 block">
+                    <span className="text-xs font-mono font-bold t-ink-2 block">
                       AUDIO STATEMENT ({item.audioDuration})
                     </span>
-                    <span className="text-[11px] text-neutral-400">
+                    <span className="text-[11px] t-faint">
                       Acoustic formant shifted +4 semitones
                     </span>
                   </div>
@@ -107,19 +107,19 @@ export const EvidenceGalleryView: React.FC = () => {
                       <span className="font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
                         ✓ {item.sanitizedTag}
                       </span>
-                      <span className="font-mono text-neutral-500">EXIF_CLEARED</span>
+                      <span className="font-mono t-muted">EXIF_CLEARED</span>
                     </div>
 
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-16 h-10 bg-neutral-300/80 backdrop-blur-md rounded border border-neutral-400/40 flex items-center justify-center text-[9px] text-neutral-600 font-mono">
+                      <div className="w-16 h-10 bg-neutral-300/80 backdrop-blur-md rounded border border-neutral-400/40 flex items-center justify-center text-[9px] t-ink-2 font-mono">
                         BLUR_1
                       </div>
-                      <div className="w-16 h-10 bg-neutral-300/80 backdrop-blur-md rounded border border-neutral-400/40 flex items-center justify-center text-[9px] text-neutral-600 font-mono">
+                      <div className="w-16 h-10 bg-neutral-300/80 backdrop-blur-md rounded border border-neutral-400/40 flex items-center justify-center text-[9px] t-ink-2 font-mono">
                         BLUR_2
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] text-neutral-500">
+                    <div className="flex items-center justify-between text-[10px] t-muted">
                       <span>Click to compare with raw</span>
                       <Maximize2 className="w-3.5 h-3.5" />
                     </div>
@@ -128,7 +128,7 @@ export const EvidenceGalleryView: React.FC = () => {
 
                 {/* Hover overlay hint */}
                 <div className="absolute inset-0 bg-[#6D4AFF]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                  <span className="text-xs font-bold text-[#6D4AFF] bg-white/95 px-3 py-1.5 rounded-lg shadow-sm">
+                  <span className="text-xs font-bold text-[#6D4AFF] themed-card/95 px-3 py-1.5 rounded-lg shadow-sm">
                     Inspect Redaction Layer
                   </span>
                 </div>
@@ -136,28 +136,28 @@ export const EvidenceGalleryView: React.FC = () => {
 
               {/* Information body */}
               <div className="p-5 space-y-3">
-                <div className="flex items-center justify-between text-xs text-neutral-500">
+                <div className="flex items-center justify-between text-xs t-muted">
                   <span className="flex items-center gap-1 font-medium">
-                    <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                    <MapPin className="w-3.5 h-3.5 t-faint" />
                     {item.location}
                   </span>
                   <span className="font-mono text-[11px]">{item.timestamp}</span>
                 </div>
 
-                <h3 className="font-extrabold text-base text-neutral-900 group-hover:text-[#6D4AFF] transition-colors line-clamp-1">
+                <h3 className="font-extrabold text-base t-ink group-hover:text-[#6D4AFF] transition-colors line-clamp-1">
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-neutral-600 line-clamp-2">
+                <p className="text-xs t-ink-2 line-clamp-2">
                   {item.description}
                 </p>
 
                 {/* Redaction Tags */}
-                <div className="pt-2 border-t border-neutral-100 flex flex-wrap gap-1">
+                <div className="pt-2 border-t b-skin flex flex-wrap gap-1">
                   {item.attributesRedacted.map((attr, idx) => (
                     <span
                       key={idx}
-                      className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded font-medium"
+                      className="text-[10px] themed-muted t-ink-2 px-2 py-0.5 rounded font-medium"
                     >
                       {attr}
                     </span>
@@ -171,26 +171,26 @@ export const EvidenceGalleryView: React.FC = () => {
         {/* LIGHTBOX MODAL WITH BEFORE/AFTER REDACTION SLIDER */}
         {activeLightbox && (
           <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden border border-neutral-200 shadow-2xl flex flex-col">
+            <div className="themed-card rounded-2xl max-w-3xl w-full overflow-hidden border b-skin shadow-2xl flex flex-col">
               {/* Lightbox Header */}
-              <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+              <div className="px-6 py-4 border-b b-skin flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                       ✓ {activeLightbox.sanitizedTag}
                     </span>
-                    <span className="text-xs text-neutral-500 font-medium">
+                    <span className="text-xs t-muted font-medium">
                       Location: {activeLightbox.location}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-neutral-900 mt-1">
+                  <h3 className="text-lg font-bold t-ink mt-1">
                     {activeLightbox.title}
                   </h3>
                 </div>
 
                 <button
                   onClick={() => setActiveLightbox(null)}
-                  className="p-2 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100"
+                  className="p-2 t-faint hover:t-ink-2 rounded-lg hover:themed-muted"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -206,24 +206,24 @@ export const EvidenceGalleryView: React.FC = () => {
                         <span className="text-emerald-400 font-bold bg-emerald-950/70 px-2.5 py-1 rounded border border-emerald-800">
                           SANITIZED PUBLIC VERSION
                         </span>
-                        <span className="text-neutral-400 font-mono text-[11px]">
+                        <span className="t-faint font-mono text-[11px]">
                           Identity Neutralized
                         </span>
                       </div>
 
                       <div className="grid grid-cols-3 gap-4 my-auto">
-                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono text-neutral-400">
+                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono t-faint">
                           [FACE_MASKED]
                         </div>
-                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono text-neutral-400">
+                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono t-faint">
                           [PLATE_BLURRED]
                         </div>
-                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono text-neutral-400">
+                        <div className="h-20 bg-neutral-800/90 rounded border border-neutral-600 flex items-center justify-center text-xs font-mono t-faint">
                           [EXIF_STRIPPED]
                         </div>
                       </div>
 
-                      <div className="text-xs text-neutral-400 text-center">
+                      <div className="text-xs t-faint text-center">
                         Published to public civic feed without vulnerability.
                       </div>
                     </div>
@@ -272,20 +272,20 @@ export const EvidenceGalleryView: React.FC = () => {
                     className="absolute top-0 bottom-0 pointer-events-none z-10 flex items-center -ml-3"
                     style={{ left: `${lightboxSplit}%` }}
                   >
-                    <div className="w-6 h-6 rounded-full bg-white shadow-xl flex items-center justify-center text-neutral-900 text-[10px] font-bold">
+                    <div className="w-6 h-6 rounded-full themed-card shadow-xl flex items-center justify-center t-ink text-[10px] font-bold">
                       ↔
                     </div>
                   </div>
                 </div>
 
-                <div className="w-full flex items-center justify-between text-xs text-neutral-400 mt-3">
+                <div className="w-full flex items-center justify-between text-xs t-faint mt-3">
                   <span>← Drag slider left to expose raw redaction area</span>
                   <span>Drag right for sanitized public asset →</span>
                 </div>
               </div>
 
               {/* Lightbox Footer */}
-              <div className="px-6 py-4 bg-neutral-50 flex items-center justify-between text-xs">
+              <div className="px-6 py-4 themed-muted flex items-center justify-between text-xs">
                 <div className="flex flex-wrap gap-2">
                   {activeLightbox.attributesRedacted.map((r: string, idx: number) => (
                     <span

@@ -1,0 +1,30 @@
+{
+  "url": "https://overworldaudio.com/",
+  "title": "Overworld Audio",
+  "description": "Audio co-development for games and interactive experiences, from prototype to final mix.",
+  "links": [
+    {
+      "href": "/",
+      "text": "ProjectsProjects"
+    },
+    {
+      "href": "/studio",
+      "text": "StudioStudio"
+    },
+    {
+      "href": "/contact",
+      "text": "ContactContact"
+    },
+    {
+      "href": "/work",
+      "text": "Explore our work"
+    }
+  ],
+  "headings": [
+    {
+      "tag": "h1",
+      "text": "Building unforgettable sonic experiences"
+    }
+  ],
+  "images": []
+}

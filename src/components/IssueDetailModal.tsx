@@ -63,23 +63,23 @@ export const IssueDetailModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-4xl w-full border border-neutral-200 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="themed-card rounded-2xl max-w-4xl w-full border b-skin shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+        <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[#6D4AFF]">
               Signal Dossier
             </span>
-            <span className="text-neutral-300">·</span>
-            <span className="text-xs text-neutral-500 font-mono">ID: {selectedIssue.id}</span>
+            <span className="t-faint">·</span>
+            <span className="text-xs t-muted font-mono">ID: {selectedIssue.id}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => openAssignModal(selectedIssue)}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-neutral-700 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold t-ink-2 themed-card border b-skin rounded-lg hover:themed-muted transition-colors"
             >
-              <Building2 className="w-3.5 h-3.5 text-neutral-500" />
+              <Building2 className="w-3.5 h-3.5 t-muted" />
               <span>Assign Authority</span>
             </button>
 
@@ -93,7 +93,7 @@ export const IssueDetailModal: React.FC = () => {
 
             <button
               onClick={() => setSelectedIssueId(null)}
-              className="p-2 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100 transition-colors"
+              className="p-2 t-faint hover:t-ink-2 rounded-lg hover:themed-muted transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -101,14 +101,14 @@ export const IssueDetailModal: React.FC = () => {
         </div>
 
         {/* Issue Hero Section */}
-        <div className="px-6 sm:px-8 pt-6 pb-4 border-b border-neutral-100">
+        <div className="px-6 sm:px-8 pt-6 pb-4 border-b b-skin">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
             <div className="flex items-center gap-2 text-xs font-semibold">
               <span className="capitalize text-[#6D4AFF] bg-[#6D4AFF]/10 px-2 py-0.5 rounded">
                 ⚡ {selectedIssue.category}
               </span>
-              <span className="text-neutral-500 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+              <span className="t-muted flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 t-faint" />
                 {selectedIssue.locationName} · {selectedIssue.district}
               </span>
             </div>
@@ -126,36 +126,36 @@ export const IssueDetailModal: React.FC = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900">
+          <h2 className="text-2xl sm:text-3xl font-extrabold t-ink">
             {selectedIssue.title}
           </h2>
 
-          <p className="mt-2 text-sm text-neutral-600 max-w-3xl leading-relaxed">
+          <p className="mt-2 text-sm t-ink-2 max-w-3xl leading-relaxed">
             {selectedIssue.description}
           </p>
 
           {/* Quantitative Metrics Bar */}
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-neutral-50 border border-neutral-200/70">
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl themed-muted border b-skin-strong">
             <div>
-              <span className="text-[11px] font-medium text-neutral-500 block">Reports Grouped</span>
-              <span className="text-xl sm:text-2xl font-extrabold text-neutral-900 tabular-nums">
+              <span className="text-[11px] font-medium t-muted block">Reports Grouped</span>
+              <span className="text-xl sm:text-2xl font-extrabold t-ink tabular-nums">
                 {selectedIssue.reportCount.toLocaleString()}
               </span>
             </div>
             <div>
-              <span className="text-[11px] font-medium text-neutral-500 block">Confirmations</span>
+              <span className="text-[11px] font-medium t-muted block">Confirmations</span>
               <span className="text-xl sm:text-2xl font-extrabold text-emerald-600 tabular-nums">
                 {selectedIssue.confirmationsCount}
               </span>
             </div>
             <div>
-              <span className="text-[11px] font-medium text-neutral-500 block">Not Affected</span>
-              <span className="text-xl sm:text-2xl font-extrabold text-neutral-500 tabular-nums">
+              <span className="text-[11px] font-medium t-muted block">Not Affected</span>
+              <span className="text-xl sm:text-2xl font-extrabold t-muted tabular-nums">
                 {selectedIssue.notAffectedCount}
               </span>
             </div>
             <div>
-              <span className="text-[11px] font-medium text-neutral-500 block">24h Velocity</span>
+              <span className="text-[11px] font-medium t-muted block">24h Velocity</span>
               <span className="text-xl sm:text-2xl font-extrabold text-[#6D4AFF] tabular-nums flex items-center">
                 +{selectedIssue.trendPercentage}%
                 <TrendingUp className="w-4 h-4 ml-1 inline" />
@@ -166,13 +166,13 @@ export const IssueDetailModal: React.FC = () => {
           {/* Citizen Interaction Bar: Immediate Vote Feedback */}
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-neutral-700">Citizen Feedback:</span>
+              <span className="text-xs font-semibold t-ink-2">Citizen Feedback:</span>
               <button
                 onClick={() => confirmIssue(selectedIssue.id, 'experienced')}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
                   isConfirmed
                     ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                    : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100'
+                    : 'themed-card t-ink-2 b-skin hover:themed-muted'
                 }`}
               >
                 ✓ I'm experiencing this too ({selectedIssue.confirmationsCount})
@@ -182,7 +182,7 @@ export const IssueDetailModal: React.FC = () => {
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
                   isNotAffected
                     ? 'bg-neutral-900 text-white border-neutral-900'
-                    : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-100'
+                    : 'themed-card t-ink-2 b-skin hover:themed-muted'
                 }`}
               >
                 Not affected ({selectedIssue.notAffectedCount})
@@ -200,7 +200,7 @@ export const IssueDetailModal: React.FC = () => {
         </div>
 
         {/* Tab Navigation */}
-        <div className="px-6 border-b border-neutral-200 bg-white">
+        <div className="px-6 border-b b-skin themed-card">
           <nav className="flex space-x-6 text-xs sm:text-sm font-semibold">
             {[
               { id: 'overview', label: 'Overview' },
@@ -214,7 +214,7 @@ export const IssueDetailModal: React.FC = () => {
                 className={`py-3 relative transition-colors ${
                   activeTab === tab.id
                     ? 'text-[#6D4AFF] font-bold'
-                    : 'text-neutral-500 hover:text-neutral-800'
+                    : 't-muted hover:t-ink-2'
                 }`}
               >
                 {tab.label}
@@ -233,20 +233,20 @@ export const IssueDetailModal: React.FC = () => {
             <div className="space-y-6">
               {/* Verified official banner */}
               {selectedIssue.updates.length > 0 && (
-                <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200/90 shadow-2xs">
+                <div className="p-4 rounded-xl themed-muted border b-skin/90 shadow-2xs">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-900">
+                    <div className="flex items-center gap-1.5 text-xs font-bold t-ink">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>VERIFIED OFFICIAL UPDATE</span>
                     </div>
-                    <span className="text-[11px] text-neutral-400">
+                    <span className="text-[11px] t-faint">
                       {selectedIssue.updates[0].timestamp}
                     </span>
                   </div>
-                  <p className="text-sm text-neutral-800 leading-relaxed font-medium">
+                  <p className="text-sm t-ink-2 leading-relaxed font-medium">
                     “{selectedIssue.updates[0].content}”
                   </p>
-                  <div className="mt-2 text-xs text-neutral-500 font-semibold">
+                  <div className="mt-2 text-xs t-muted font-semibold">
                     {selectedIssue.updates[0].department}
                   </div>
                 </div>
@@ -261,17 +261,17 @@ export const IssueDetailModal: React.FC = () => {
                       AI Cluster Synthesis
                     </h4>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500">
+                  <span className="text-[11px] font-mono t-muted">
                     Confidence: {selectedIssue.confidenceScore}%
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                <p className="text-xs sm:text-sm t-ink-2 leading-relaxed">
                   {selectedIssue.aiSummary}
                 </p>
 
                 <div className="space-y-1.5 pt-2">
                   {selectedIssue.aiObservations.map((obs, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs text-neutral-600">
+                    <div key={idx} className="flex items-start gap-2 text-xs t-ink-2">
                       <span className="text-[#6D4AFF] font-bold">•</span>
                       <span>{obs}</span>
                     </div>
@@ -281,15 +281,15 @@ export const IssueDetailModal: React.FC = () => {
 
               {/* Affected Wards & Jurisdiction */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl border border-neutral-200 bg-white">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">
+                <div className="p-4 rounded-xl border b-skin themed-card">
+                  <h4 className="text-xs font-bold uppercase tracking-wider t-muted mb-2">
                     Affected Wards & Zones
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedIssue.affectedWards.map((ward) => (
                       <span
                         key={ward}
-                        className="px-2.5 py-1 rounded bg-neutral-100 text-xs font-medium text-neutral-700"
+                        className="px-2.5 py-1 rounded themed-muted text-xs font-medium t-ink-2"
                       >
                         {ward}
                       </span>
@@ -297,15 +297,15 @@ export const IssueDetailModal: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl border border-neutral-200 bg-white">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">
+                <div className="p-4 rounded-xl border b-skin themed-card">
+                  <h4 className="text-xs font-bold uppercase tracking-wider t-muted mb-2">
                     Assigned Authority
                   </h4>
-                  <div className="text-sm font-semibold text-neutral-900">
+                  <div className="text-sm font-semibold t-ink">
                     {selectedIssue.assignedAuthority || 'Pending Municipal Assignment'}
                   </div>
                   {selectedIssue.assignedOfficer && (
-                    <div className="text-xs text-neutral-500 mt-1">
+                    <div className="text-xs t-muted mt-1">
                       Lead: {selectedIssue.assignedOfficer}
                     </div>
                   )}
@@ -318,8 +318,8 @@ export const IssueDetailModal: React.FC = () => {
           {activeTab === 'timeline' && (
             <div className="space-y-6">
               <div>
-                <h4 className="text-sm font-bold text-neutral-900">Issue Lifecycle Progress</h4>
-                <p className="text-xs text-neutral-500">
+                <h4 className="text-sm font-bold t-ink">Issue Lifecycle Progress</h4>
+                <p className="text-xs t-muted">
                   Real-time progression from citizen submission to public verification.
                 </p>
               </div>
@@ -334,19 +334,19 @@ export const IssueDetailModal: React.FC = () => {
                           ? 'bg-[#6D4AFF] text-white shadow-xs'
                           : event.completed
                           ? 'bg-emerald-500 text-white'
-                          : 'bg-neutral-200 text-neutral-400'
+                          : 'bg-neutral-200 t-faint'
                       }`}
                     >
                       {event.completed ? (
                         <CheckCircle2 className="w-3.5 h-3.5" />
                       ) : (
-                        <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                        <span className="w-1.5 h-1.5 rounded-full themed-card" />
                       )}
                     </div>
 
-                    <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/80">
+                    <div className="themed-muted p-4 rounded-xl border b-skin-strong">
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="font-bold text-neutral-900 flex items-center gap-1.5">
+                        <span className="font-bold t-ink flex items-center gap-1.5">
                           <span>{event.title}</span>
                           {event.current && (
                             <span className="text-[10px] bg-[#6D4AFF] text-white px-1.5 py-0.2 rounded font-mono">
@@ -354,11 +354,11 @@ export const IssueDetailModal: React.FC = () => {
                             </span>
                           )}
                         </span>
-                        <span className="text-neutral-400 font-mono text-[11px]">
+                        <span className="t-faint font-mono text-[11px]">
                           {event.timestamp}
                         </span>
                       </div>
-                      <p className="text-xs text-neutral-600 leading-normal">
+                      <p className="text-xs t-ink-2 leading-normal">
                         {event.description}
                       </p>
                     </div>
@@ -373,8 +373,8 @@ export const IssueDetailModal: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-neutral-900">Sanitized Evidence Items</h4>
-                  <p className="text-xs text-neutral-500">
+                  <h4 className="text-sm font-bold t-ink">Sanitized Evidence Items</h4>
+                  <p className="text-xs t-muted">
                     Uploaded by community reporters. PII, vehicle numbers, and facial vectors stripped.
                   </p>
                 </div>
@@ -385,7 +385,7 @@ export const IssueDetailModal: React.FC = () => {
               </div>
 
               {selectedIssue.evidence.length === 0 ? (
-                <div className="text-center py-8 text-neutral-400 text-xs">
+                <div className="text-center py-8 t-faint text-xs">
                   No public evidence items attached yet.
                 </div>
               ) : (
@@ -393,17 +393,17 @@ export const IssueDetailModal: React.FC = () => {
                   {selectedIssue.evidence.map((ev) => (
                     <div
                       key={ev.id}
-                      className="border border-neutral-200 rounded-xl overflow-hidden bg-white shadow-xs"
+                      className="border b-skin rounded-xl overflow-hidden themed-card shadow-xs"
                     >
                       {/* Evidence visual header */}
-                      <div className="h-32 bg-slate-100 flex items-center justify-center relative p-3 border-b border-neutral-200">
+                      <div className="h-32 bg-slate-100 flex items-center justify-center relative p-3 border-b b-skin">
                         {ev.type === 'voice' ? (
                           <div className="text-center space-y-2">
                             <Volume2 className="w-8 h-8 text-[#6D4AFF] mx-auto animate-pulse" />
-                            <span className="text-xs font-mono font-semibold text-neutral-700 block">
+                            <span className="text-xs font-mono font-semibold t-ink-2 block">
                               Voice Note ({ev.audioDuration})
                             </span>
-                            <span className="text-[10px] text-neutral-500">
+                            <span className="text-[10px] t-muted">
                               Pitch shifted for anonymity
                             </span>
                           </div>
@@ -413,14 +413,14 @@ export const IssueDetailModal: React.FC = () => {
                               <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
                                 {ev.sanitizedTag}
                               </span>
-                              <span className="text-[10px] text-neutral-500 font-mono">
+                              <span className="text-[10px] t-muted font-mono">
                                 {ev.timestamp}
                               </span>
                             </div>
-                            <div className="text-center text-xs font-semibold text-neutral-700">
+                            <div className="text-center text-xs font-semibold t-ink-2">
                               [Sanitized Civic Media Asset]
                             </div>
-                            <div className="text-[10px] text-neutral-400 text-right">
+                            <div className="text-[10px] t-faint text-right">
                               Hash: 4a2b9f
                             </div>
                           </div>
@@ -428,15 +428,15 @@ export const IssueDetailModal: React.FC = () => {
                       </div>
 
                       <div className="p-4 space-y-2">
-                        <div className="font-bold text-xs sm:text-sm text-neutral-900">
+                        <div className="font-bold text-xs sm:text-sm t-ink">
                           {ev.title}
                         </div>
-                        <p className="text-xs text-neutral-600 line-clamp-2">{ev.description}</p>
-                        <div className="pt-2 border-t border-neutral-100 flex flex-wrap gap-1">
+                        <p className="text-xs t-ink-2 line-clamp-2">{ev.description}</p>
+                        <div className="pt-2 border-t b-skin flex flex-wrap gap-1">
                           {ev.attributesRedacted.map((attr, i) => (
                             <span
                               key={i}
-                              className="text-[10px] bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded"
+                              className="text-[10px] themed-muted t-ink-2 px-1.5 py-0.5 rounded"
                             >
                               ✓ {attr}
                             </span>
@@ -455,15 +455,15 @@ export const IssueDetailModal: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-neutral-900">Government Action Stream</h4>
-                  <p className="text-xs text-neutral-500">
+                  <h4 className="text-sm font-bold t-ink">Government Action Stream</h4>
+                  <p className="text-xs t-muted">
                     Official bulletins and status milestones verified by responding department.
                   </p>
                 </div>
 
                 <button
                   onClick={() => setShowQuickPublish(!showQuickPublish)}
-                  className="px-3 py-1.5 text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors"
+                  className="px-3 py-1.5 text-xs font-semibold t-ink-2 themed-muted hover:bg-neutral-200 rounded-lg transition-colors"
                 >
                   {showQuickPublish ? 'Cancel' : '+ Post Authority Bulletin'}
                 </button>
@@ -473,27 +473,27 @@ export const IssueDetailModal: React.FC = () => {
               {showQuickPublish && (
                 <form
                   onSubmit={handlePostOfficialUpdate}
-                  className="p-4 bg-neutral-50 rounded-xl border border-neutral-200 space-y-3 animate-in slide-in-from-top-2"
+                  className="p-4 themed-muted rounded-xl border b-skin space-y-3 animate-in slide-in-from-top-2"
                 >
-                  <div className="flex items-center justify-between text-xs font-bold text-neutral-800">
+                  <div className="flex items-center justify-between text-xs font-bold t-ink-2">
                     <span>Publish Verified Official Dispatch</span>
                     <span className="text-[11px] text-emerald-600">Authority Signature Active</span>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] text-neutral-500 font-semibold mb-1">
+                    <label className="block text-[11px] t-muted font-semibold mb-1">
                       Department Authority
                     </label>
                     <input
                       type="text"
                       value={quickUpdateDept}
                       onChange={(e) => setQuickUpdateDept(e.target.value)}
-                      className="w-full px-3 py-1.5 bg-white border border-neutral-200 rounded-md text-xs font-medium"
+                      className="w-full px-3 py-1.5 themed-card border b-skin rounded-md text-xs font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] text-neutral-500 font-semibold mb-1">
+                    <label className="block text-[11px] t-muted font-semibold mb-1">
                       Official Dispatch Text
                     </label>
                     <textarea
@@ -501,7 +501,7 @@ export const IssueDetailModal: React.FC = () => {
                       value={quickUpdateText}
                       onChange={(e) => setQuickUpdateText(e.target.value)}
                       placeholder="e.g. Auxiliary feeder circuit 3B has been energized. Load testing in progress..."
-                      className="w-full px-3 py-2 bg-white border border-neutral-200 rounded-md text-xs text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+                      className="w-full px-3 py-2 themed-card border b-skin rounded-md text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
                     />
                   </div>
 
@@ -509,7 +509,7 @@ export const IssueDetailModal: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowQuickPublish(false)}
-                      className="px-3 py-1 text-xs text-neutral-600 bg-white border border-neutral-200 rounded-md"
+                      className="px-3 py-1 text-xs t-ink-2 themed-card border b-skin rounded-md"
                     >
                       Cancel
                     </button>
@@ -528,24 +528,24 @@ export const IssueDetailModal: React.FC = () => {
                 {selectedIssue.updates.map((upd) => (
                   <div
                     key={upd.id}
-                    className="p-4 rounded-xl border border-neutral-200 bg-white shadow-xs space-y-2"
+                    className="p-4 rounded-xl border b-skin themed-card shadow-xs space-y-2"
                   >
                     <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1.5 font-bold text-neutral-900">
+                      <div className="flex items-center gap-1.5 font-bold t-ink">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                         <span>{upd.department}</span>
                       </div>
-                      <span className="text-[11px] text-neutral-400 font-mono">
+                      <span className="text-[11px] t-faint font-mono">
                         {upd.timestamp}
                       </span>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-medium">
+                    <p className="text-xs sm:text-sm t-ink-2 leading-relaxed font-medium">
                       “{upd.content}”
                     </p>
 
                     {upd.designation && (
-                      <div className="text-[11px] text-neutral-400 font-medium">
+                      <div className="text-[11px] t-faint font-medium">
                         Signed: {upd.designation}
                       </div>
                     )}

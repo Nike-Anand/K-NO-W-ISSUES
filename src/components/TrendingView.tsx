@@ -74,7 +74,7 @@ export const TrendingView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F8FC] pb-20">
+    <div className="min-h-screen themed-page pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
         {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
@@ -83,15 +83,15 @@ export const TrendingView: React.FC = () => {
               <Flame className="w-4 h-4 text-[#6D4AFF]" />
               <span>Signal Acceleration Index</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight t-ink">
               Trending Public Signals
             </h1>
-            <p className="mt-2 text-sm text-neutral-600 max-w-2xl">
+            <p className="mt-2 text-sm t-ink-2 max-w-2xl">
               Signals exhibiting statistical surge and rapid verification velocity across the Chennai metropolitan monitoring zone.
             </p>
           </div>
 
-          <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-neutral-200/80 shadow-2xs text-xs">
+          <div className="flex items-center gap-1 themed-card p-1 rounded-xl border b-skin-strong shadow-2xs text-xs">
             {(['24h', '48h', '7d'] as const).map((t) => (
               <button
                 key={t}
@@ -99,7 +99,7 @@ export const TrendingView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
                   timeFilter === t
                     ? 'bg-[#6D4AFF] text-white shadow-xs'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                    : 't-ink-2 hover:t-ink'
                 }`}
               >
                 {t === '24h' ? 'Last 24h' : t === '48h' ? 'Last 48h' : 'Last 7 Days'}
@@ -109,7 +109,7 @@ export const TrendingView: React.FC = () => {
         </div>
 
         {/* TRENDING LIST TABLE / BENTO ROWS */}
-        <div className="space-y-4">
+        <div className="space-y-4 stagger">
           {sortedIssues.map((issue, index) => {
             const isTop = index === 0;
             const strokeColor =
@@ -124,14 +124,14 @@ export const TrendingView: React.FC = () => {
             return (
               <div
                 key={issue.id}
-                className={`bg-white rounded-2xl border transition-all p-5 sm:p-6 shadow-xs hover:shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6 group ${
-                  isTop ? 'border-[#6D4AFF]/40 ring-1 ring-[#6D4AFF]/10' : 'border-neutral-200/80'
+                className={`themed-card rounded-2xl border transition-all p-5 sm:p-6 shadow-xs hover:shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6 group card-lift ${
+                  isTop ? 'border-[#6D4AFF]/40 ring-1 ring-[#6D4AFF]/10' : 'b-skin-strong'
                 }`}
               >
                 {/* Left section: Rank + Category icon + Title + Metadata */}
                 <div className="flex items-start gap-4 flex-1">
                   <div className="flex flex-col items-center justify-center w-8 pt-1 text-center shrink-0">
-                    <span className="font-mono text-lg font-extrabold text-neutral-400 group-hover:text-[#6D4AFF] transition-colors">
+                    <span className="font-mono text-lg font-extrabold t-faint group-hover:text-[#6D4AFF] transition-colors">
                       0{index + 1}
                     </span>
                   </div>
@@ -141,37 +141,37 @@ export const TrendingView: React.FC = () => {
                       <span className="capitalize font-bold text-[#6D4AFF] bg-[#6D4AFF]/10 px-2 py-0.5 rounded">
                         {issue.category}
                       </span>
-                      <span className="text-neutral-500 flex items-center gap-1 font-medium">
-                        <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                      <span className="t-muted flex items-center gap-1 font-medium">
+                        <MapPin className="w-3.5 h-3.5 t-faint" />
                         {issue.locationName} · {issue.district}
                       </span>
-                      <span className="text-neutral-300">·</span>
-                      <span className="text-neutral-500 font-medium">
+                      <span className="t-faint">·</span>
+                      <span className="t-muted font-medium">
                         {issue.affectedWards.join(', ')}
                       </span>
                     </div>
 
                     <h3
                       onClick={() => setSelectedIssueId(issue.id)}
-                      className="text-lg sm:text-xl font-extrabold text-neutral-900 group-hover:text-[#6D4AFF] transition-colors cursor-pointer"
+                      className="text-lg sm:text-xl font-extrabold t-ink group-hover:text-[#6D4AFF] transition-colors cursor-pointer"
                     >
                       {issue.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-neutral-600 line-clamp-1">
+                    <p className="text-xs sm:text-sm t-ink-2 line-clamp-1">
                       {issue.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Middle section: Real-time sparkline graph + Velocity badge */}
-                <div className="flex items-center justify-between sm:justify-end gap-6 pt-3 lg:pt-0 border-t lg:border-t-0 border-neutral-100">
+                <div className="flex items-center justify-between sm:justify-end gap-6 pt-3 lg:pt-0 border-t lg:border-t-0 b-skin">
                   <div className="text-right">
                     <div className="flex items-center gap-1 text-base sm:text-lg font-extrabold text-[#6D4AFF] tabular-nums">
                       <span>+{issue.trendPercentage}%</span>
                       <TrendingUp className="w-4 h-4 inline" />
                     </div>
-                    <span className="text-[11px] text-neutral-400 block font-mono">
+                    <span className="text-[11px] t-faint block font-mono">
                       in past {timeFilter}
                     </span>
                   </div>
@@ -183,16 +183,16 @@ export const TrendingView: React.FC = () => {
 
                   {/* Quantitative report totals */}
                   <div className="text-right min-w-[80px]">
-                    <div className="text-base sm:text-lg font-extrabold text-neutral-900 tabular-nums">
+                    <div className="text-base sm:text-lg font-extrabold t-ink tabular-nums">
                       {issue.reportCount.toLocaleString()}
                     </div>
-                    <span className="text-[11px] text-neutral-500 block">Reports Grouped</span>
+                    <span className="text-[11px] t-muted block">Reports Grouped</span>
                   </div>
 
                   {/* Action CTA */}
                   <button
                     onClick={() => setSelectedIssueId(issue.id)}
-                    className="p-2 text-neutral-400 hover:text-[#6D4AFF] hover:bg-[#6D4AFF]/10 rounded-xl transition-all"
+                    className="p-2 t-faint hover:text-[#6D4AFF] hover:bg-[#6D4AFF]/10 rounded-xl transition-all"
                     title="Open Issue Dossier"
                   >
                     <ArrowUpRight className="w-5 h-5" />

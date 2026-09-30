@@ -47,17 +47,17 @@ export const AssignIssueModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-lg w-full border border-neutral-200 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150">
+      <div className="themed-card rounded-2xl max-w-lg w-full border b-skin shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+        <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-[#6D4AFF]" />
-            <h3 className="font-extrabold text-neutral-900 text-sm">Assign Issue Authority</h3>
+            <h3 className="font-extrabold t-ink text-sm">Assign Issue Authority</h3>
           </div>
 
           <button
             onClick={() => setIsAssignModalOpen(false)}
-            className="p-1.5 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100"
+            className="p-1.5 t-faint hover:t-ink-2 rounded-lg hover:themed-muted"
           >
             <X className="w-4 h-4" />
           </button>
@@ -70,24 +70,24 @@ export const AssignIssueModal: React.FC = () => {
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#6D4AFF] block">
               Target Signal
             </span>
-            <div className="font-bold text-neutral-900 text-sm mt-0.5">
+            <div className="font-bold t-ink text-sm mt-0.5">
               {activeAssignIssue.title}
             </div>
-            <div className="text-neutral-500 text-[11px] mt-0.5">
+            <div className="t-muted text-[11px] mt-0.5">
               {activeAssignIssue.locationName} · {activeAssignIssue.reportCount} reports grouped
             </div>
           </div>
 
           {/* Suggested Authority */}
           <div>
-            <label className="block font-bold text-neutral-700 mb-1.5 flex items-center gap-1.5">
+            <label className="block font-bold t-ink-2 mb-1.5 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#6D4AFF]" />
               <span>Suggested Department / Authority:</span>
             </label>
             <select
               value={selectedAuthority}
               onChange={(e) => setSelectedAuthority(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg font-medium text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
             >
               {AUTHORITIES_LIST.map((auth) => (
                 <option key={auth.id} value={auth.name}>
@@ -99,27 +99,27 @@ export const AssignIssueModal: React.FC = () => {
 
           {/* Officer in Charge */}
           <div>
-            <label className="block font-bold text-neutral-700 mb-1.5">
+            <label className="block font-bold t-ink-2 mb-1.5">
               Designated Officer / Dispatch Unit:
             </label>
             <input
               type="text"
               value={officerName}
               onChange={(e) => setOfficerName(e.target.value)}
-              className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-lg font-medium text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
             />
           </div>
 
           {/* Dispatch Notice / Notes */}
           <div>
-            <label className="block font-bold text-neutral-700 mb-1.5">
+            <label className="block font-bold t-ink-2 mb-1.5">
               Dispatch Instructions / Operational Note:
             </label>
             <textarea
               rows={3}
               value={urgencyNote}
               onChange={(e) => setUrgencyNote(e.target.value)}
-              className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
             />
           </div>
 
@@ -128,7 +128,7 @@ export const AssignIssueModal: React.FC = () => {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="px-3 py-2 rounded-lg border border-neutral-200 text-neutral-700 font-semibold hover:bg-neutral-50 flex items-center gap-1.5 transition-colors"
+              className="px-3 py-2 rounded-lg border b-skin t-ink-2 font-semibold hover:themed-muted flex items-center gap-1.5 transition-colors"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied' : 'Copy Internal Link'}</span>

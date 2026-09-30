@@ -25,7 +25,7 @@ export const MyIssuesView: React.FC = () => {
   } = useApp();
 
   return (
-    <div className="min-h-screen bg-[#F8F8FC] pb-20">
+    <div className="min-h-screen themed-page pb-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
@@ -34,10 +34,10 @@ export const MyIssuesView: React.FC = () => {
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Anonymized Citizen Ledger</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight t-ink">
               My Tracked Issues
             </h1>
-            <p className="mt-2 text-sm text-neutral-600">
+            <p className="mt-2 text-sm t-ink-2">
               Personal reports submitted from this device. Tokens are stored client-side without storing identity or telephone numbers on public servers.
             </p>
           </div>
@@ -53,10 +53,10 @@ export const MyIssuesView: React.FC = () => {
 
         {/* Timeline Cards */}
         {userReports.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-2xl border border-neutral-200/80 p-8 shadow-xs">
-            <FileText className="w-10 h-10 text-neutral-300 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-neutral-800">No signals tracked yet</h3>
-            <p className="text-xs text-neutral-500 mt-1 max-w-sm mx-auto">
+          <div className="text-center py-16 themed-card rounded-2xl border b-skin-strong p-8 shadow-xs">
+            <FileText className="w-10 h-10 t-faint mx-auto mb-3" />
+            <h3 className="text-base font-bold t-ink-2">No signals tracked yet</h3>
+            <p className="text-xs t-muted mt-1 max-w-sm mx-auto">
               When you submit an issue, your private tracking token appears here with live updates from responding authorities.
             </p>
             <button
@@ -67,50 +67,50 @@ export const MyIssuesView: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 stagger">
             {userReports.map((report) => {
               const matchedIssue = issues.find((i) => i.id === report.issueId) || issues[0];
 
               return (
                 <div
                   key={report.id}
-                  className="bg-white rounded-2xl border border-neutral-200/80 p-6 shadow-xs hover:border-[#6D4AFF]/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
+                  className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs hover:border-[#6D4AFF]/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 card-lift"
                 >
                   <div className="space-y-2 flex-1">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="capitalize font-bold text-[#6D4AFF] bg-[#6D4AFF]/10 px-2.5 py-0.5 rounded">
                         {report.category}
                       </span>
-                      <span className="text-neutral-500 flex items-center gap-1 font-medium">
-                        <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                      <span className="t-muted flex items-center gap-1 font-medium">
+                        <MapPin className="w-3.5 h-3.5 t-faint" />
                         {report.location}
                       </span>
-                      <span className="text-neutral-300">·</span>
-                      <span className="text-neutral-400 font-mono text-[11px]">
+                      <span className="t-faint">·</span>
+                      <span className="t-faint font-mono text-[11px]">
                         {report.timestamp}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-neutral-900">{report.title}</h3>
+                    <h3 className="text-lg font-bold t-ink">{report.title}</h3>
 
-                    <p className="text-xs text-neutral-600 line-clamp-2">
+                    <p className="text-xs t-ink-2 line-clamp-2">
                       {report.evidenceContent}
                     </p>
 
-                    <div className="flex items-center gap-3 pt-2 text-xs text-neutral-500">
+                    <div className="flex items-center gap-3 pt-2 text-xs t-muted">
                       <span className="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-200">
                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                         Identity Vector Stripped
                       </span>
                       <span>·</span>
-                      <span className="font-semibold text-neutral-700">
+                      <span className="font-semibold t-ink-2">
                         Grouped with {report.groupedWithCount.toLocaleString()} neighborhood signals
                       </span>
                     </div>
                   </div>
 
                   {/* Status & CTA */}
-                  <div className="flex md:flex-col items-center md:items-end justify-between gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-100">
+                  <div className="flex md:flex-col items-center md:items-end justify-between gap-3 pt-3 md:pt-0 border-t md:border-t-0 b-skin">
                     <span
                       className={`text-xs px-3 py-1 rounded-md font-semibold border ${
                         matchedIssue.status === 'Action in Progress'

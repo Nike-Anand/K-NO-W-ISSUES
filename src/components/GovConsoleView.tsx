@@ -105,16 +105,16 @@ export const GovConsoleView: React.FC = () => {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-[#F8F8FC] flex flex-col">
+    <div className="min-h-screen themed-page flex flex-col">
       {/* Gov Console Sub-Navbar */}
       <div className="bg-neutral-900 text-white px-4 sm:px-8 py-2.5 flex flex-wrap items-center justify-between text-xs gap-3">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-bold tracking-wide uppercase text-neutral-300">
+          <span className="font-bold tracking-wide uppercase t-faint">
             Tamil Nadu State Governance Node
           </span>
-          <span className="text-neutral-600">|</span>
-          <span className="text-neutral-400 font-mono text-[11px]">
+          <span className="t-ink-2">|</span>
+          <span className="t-faint font-mono text-[11px]">
             ACTIVE OPERATIONAL SESSION · CHENNAI ZONE
           </span>
         </div>
@@ -137,8 +137,8 @@ export const GovConsoleView: React.FC = () => {
       <div className="flex-1 flex flex-col lg:flex-row max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6">
         {/* Gov Operations Sidebar */}
         <div className="w-full lg:w-64 shrink-0 space-y-4">
-          <div className="bg-white rounded-2xl border border-neutral-200/80 p-3 shadow-xs">
-            <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+          <div className="themed-card rounded-2xl border b-skin-strong p-3 shadow-xs">
+            <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider t-faint">
               Navigation
             </div>
             <nav className="space-y-1">
@@ -152,7 +152,7 @@ export const GovConsoleView: React.FC = () => {
                     className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                       isActive
                         ? 'bg-[#6D4AFF] text-white shadow-xs'
-                        : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
+                        : 't-ink-2 hover:themed-muted hover:t-ink'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -164,19 +164,19 @@ export const GovConsoleView: React.FC = () => {
           </div>
 
           {/* Quick Municipal SLAs summary card */}
-          <div className="bg-white rounded-2xl border border-neutral-200/80 p-4 shadow-xs text-xs space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
-              <span className="font-bold text-neutral-800">Response SLA Status</span>
+          <div className="themed-card rounded-2xl border b-skin-strong p-4 shadow-xs text-xs space-y-3">
+            <div className="flex items-center justify-between pb-2 border-b b-skin">
+              <span className="font-bold t-ink-2">Response SLA Status</span>
               <span className="text-[10px] text-emerald-600 font-mono">NOMINAL</span>
             </div>
-            <div className="space-y-1.5 text-neutral-600">
+            <div className="space-y-1.5 t-ink-2">
               <div className="flex justify-between">
                 <span>Avg Acknowledgment:</span>
-                <span className="font-bold text-neutral-900 font-mono">42 min</span>
+                <span className="font-bold t-ink font-mono">42 min</span>
               </div>
               <div className="flex justify-between">
                 <span>Dispatch Resolution:</span>
-                <span className="font-bold text-neutral-900 font-mono">5.2 hrs</span>
+                <span className="font-bold t-ink font-mono">5.2 hrs</span>
               </div>
               <div className="flex justify-between">
                 <span>Citizen Verification:</span>
@@ -190,9 +190,9 @@ export const GovConsoleView: React.FC = () => {
         <div className="flex-1 space-y-6 overflow-hidden">
           {/* TOP METRIC MODULES (Crisp Editorial Tabular Metrics) */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-            <div className="bg-white p-4 rounded-xl border border-neutral-200/80 shadow-xs">
-              <span className="text-[11px] font-semibold text-neutral-500 block">Total Reports</span>
-              <span className="text-2xl font-extrabold text-neutral-900 tabular-nums">
+            <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs">
+              <span className="text-[11px] font-semibold t-muted block">Total Reports</span>
+              <span className="text-2xl font-extrabold t-ink tabular-nums">
                 {totalReports.toLocaleString()}
               </span>
               <span className="text-[10px] text-emerald-600 font-semibold block mt-0.5">
@@ -200,32 +200,32 @@ export const GovConsoleView: React.FC = () => {
               </span>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-neutral-200/80 shadow-xs">
-              <span className="text-[11px] font-semibold text-neutral-500 block">Active Clusters</span>
+            <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs">
+              <span className="text-[11px] font-semibold t-muted block">Active Clusters</span>
               <span className="text-2xl font-extrabold text-[#6D4AFF] tabular-nums">
                 {activeIssues}
               </span>
-              <span className="text-[10px] text-neutral-400 block mt-0.5">Deduplicated</span>
+              <span className="text-[10px] t-faint block mt-0.5">Deduplicated</span>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-neutral-200/80 shadow-xs">
-              <span className="text-[11px] font-semibold text-neutral-500 block">Under Review</span>
+            <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs">
+              <span className="text-[11px] font-semibold t-muted block">Under Review</span>
               <span className="text-2xl font-extrabold text-amber-600 tabular-nums">
                 {underReviewCount}
               </span>
               <span className="text-[10px] text-amber-700 block mt-0.5">Awaiting Audit</span>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-neutral-200/80 shadow-xs">
-              <span className="text-[11px] font-semibold text-neutral-500 block">In Progress</span>
+            <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs">
+              <span className="text-[11px] font-semibold t-muted block">In Progress</span>
               <span className="text-2xl font-extrabold text-blue-600 tabular-nums">
                 {inProgressCount}
               </span>
               <span className="text-[10px] text-blue-700 block mt-0.5">Field Crew Active</span>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-neutral-200/80 shadow-xs col-span-2 sm:col-span-1">
-              <span className="text-[11px] font-semibold text-neutral-500 block">Resolved Today</span>
+            <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs col-span-2 sm:col-span-1">
+              <span className="text-[11px] font-semibold t-muted block">Resolved Today</span>
               <span className="text-2xl font-extrabold text-emerald-600 tabular-nums">
                 {resolvedCount + 2}
               </span>
@@ -236,50 +236,50 @@ export const GovConsoleView: React.FC = () => {
           {/* HIERARCHICAL STATE -> DISTRICT -> ISSUE EXPLORER + DETAIL WORKSPACE */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* LEFT PANE: Hierarchical Tree Navigation (4 cols) */}
-            <div className="lg:col-span-5 bg-white rounded-2xl border border-neutral-200/80 shadow-xs p-5 flex flex-col">
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-100 mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-800">
+            <div className="lg:col-span-5 themed-card rounded-2xl border b-skin-strong shadow-xs p-5 flex flex-col">
+              <div className="flex items-center justify-between pb-3 border-b b-skin mb-3">
+                <span className="text-xs font-bold uppercase tracking-wider t-ink-2">
                   Regional Signal Hierarchy
                 </span>
-                <span className="text-[11px] text-neutral-400 font-mono">INDIA</span>
+                <span className="text-[11px] t-faint font-mono">INDIA</span>
               </div>
 
               {/* State -> District -> Issue Rows */}
               <div className="space-y-2 text-xs overflow-y-auto max-h-[550px] pr-1">
                 {/* State: Tamil Nadu */}
-                <div className="border border-neutral-200 rounded-xl overflow-hidden">
+                <div className="border b-skin rounded-xl overflow-hidden">
                   <div
                     onClick={() => toggleState('Tamil Nadu')}
-                    className="p-2.5 bg-neutral-50 hover:bg-neutral-100 flex items-center justify-between cursor-pointer font-bold text-neutral-900"
+                    className="p-2.5 themed-muted hover:themed-muted flex items-center justify-between cursor-pointer font-bold t-ink"
                   >
                     <div className="flex items-center gap-2">
                       {expandedStates['Tamil Nadu'] ? (
-                        <ChevronDown className="w-4 h-4 text-neutral-500" />
+                        <ChevronDown className="w-4 h-4 t-muted" />
                       ) : (
-                        <ChevronRight className="w-4 h-4 text-neutral-500" />
+                        <ChevronRight className="w-4 h-4 t-muted" />
                       )}
                       <span>Tamil Nadu</span>
                     </div>
-                    <span className="font-mono text-neutral-500">2,804 signals</span>
+                    <span className="font-mono t-muted">2,804 signals</span>
                   </div>
 
                   {expandedStates['Tamil Nadu'] && (
-                    <div className="p-2 space-y-2 bg-white">
+                    <div className="p-2 space-y-2 themed-card">
                       {/* District: Chennai */}
-                      <div className="border border-neutral-100 rounded-lg overflow-hidden">
+                      <div className="border b-skin rounded-lg overflow-hidden">
                         <div
                           onClick={() => toggleDistrict('Chennai')}
-                          className="p-2 bg-neutral-50/70 hover:bg-neutral-100 flex items-center justify-between cursor-pointer font-semibold text-neutral-800"
+                          className="p-2 themed-muted/70 hover:themed-muted flex items-center justify-between cursor-pointer font-semibold t-ink-2"
                         >
                           <div className="flex items-center gap-1.5">
                             {expandedDistricts['Chennai'] ? (
-                              <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
+                              <ChevronDown className="w-3.5 h-3.5 t-faint" />
                             ) : (
-                              <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
+                              <ChevronRight className="w-3.5 h-3.5 t-faint" />
                             )}
                             <span>Chennai Metropolitan</span>
                           </div>
-                          <span className="text-[11px] text-neutral-500 font-mono">5 clusters</span>
+                          <span className="text-[11px] t-muted font-mono">5 clusters</span>
                         </div>
 
                         {expandedDistricts['Chennai'] && (
@@ -292,8 +292,8 @@ export const GovConsoleView: React.FC = () => {
                                   onClick={() => setSelectedIssueInConsole(iss)}
                                   className={`p-2.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                                     isSelected
-                                      ? 'bg-[#6D4AFF]/10 border-[#6D4AFF] text-neutral-900'
-                                      : 'bg-white border-neutral-100 hover:border-neutral-200'
+                                      ? 'bg-[#6D4AFF]/10 border-[#6D4AFF] t-ink'
+                                      : 'themed-card b-skin hover:b-skin'
                                   }`}
                                 >
                                   <div className="overflow-hidden flex-1">
@@ -307,7 +307,7 @@ export const GovConsoleView: React.FC = () => {
                                         : '🏥'}{' '}
                                       {iss.title}
                                     </div>
-                                    <div className="text-[10px] text-neutral-500 flex items-center gap-1.5 mt-0.5">
+                                    <div className="text-[10px] t-muted flex items-center gap-1.5 mt-0.5">
                                       <span>{iss.locationName}</span>
                                       <span>·</span>
                                       <span className="font-mono font-semibold">
@@ -326,7 +326,7 @@ export const GovConsoleView: React.FC = () => {
                                         e.stopPropagation();
                                         openAssignModal(iss);
                                       }}
-                                      className="p-1 text-neutral-400 hover:text-[#6D4AFF] rounded"
+                                      className="p-1 t-faint hover:text-[#6D4AFF] rounded"
                                       title="Assign Authority"
                                     >
                                       <Share2 className="w-3.5 h-3.5" />
@@ -340,7 +340,7 @@ export const GovConsoleView: React.FC = () => {
                       </div>
 
                       {/* District: Coimbatore */}
-                      <div className="border border-neutral-100 rounded-lg p-2 flex items-center justify-between text-neutral-600 bg-neutral-50/50">
+                      <div className="border b-skin rounded-lg p-2 flex items-center justify-between t-ink-2 themed-muted">
                         <span>Coimbatore Industrial Area</span>
                         <span className="text-[11px] font-mono">140 signals</span>
                       </div>
@@ -349,41 +349,41 @@ export const GovConsoleView: React.FC = () => {
                 </div>
 
                 {/* State: Karnataka */}
-                <div className="border border-neutral-200 rounded-xl overflow-hidden">
+                <div className="border b-skin rounded-xl overflow-hidden">
                   <div
                     onClick={() => toggleState('Karnataka')}
-                    className="p-2.5 bg-neutral-50 hover:bg-neutral-100 flex items-center justify-between cursor-pointer font-bold text-neutral-900"
+                    className="p-2.5 themed-muted hover:themed-muted flex items-center justify-between cursor-pointer font-bold t-ink"
                   >
                     <div className="flex items-center gap-2">
-                      <ChevronRight className="w-4 h-4 text-neutral-500" />
+                      <ChevronRight className="w-4 h-4 t-muted" />
                       <span>Karnataka (Bengaluru Urban)</span>
                     </div>
-                    <span className="font-mono text-neutral-500">1,420 signals</span>
+                    <span className="font-mono t-muted">1,420 signals</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* RIGHT PANE: Government Issue Workspace & Operational Actions (7 cols) */}
-            <div className="lg:col-span-7 bg-white rounded-2xl border border-neutral-200/80 shadow-xs p-6 flex flex-col justify-between">
+            <div className="lg:col-span-7 themed-card rounded-2xl border b-skin-strong shadow-xs p-6 flex flex-col justify-between">
               <div>
                 {/* Header of selected issue */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-neutral-100">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b b-skin">
                   <div>
                     <div className="flex items-center gap-2 text-xs">
                       <span className="font-bold text-[#6D4AFF] uppercase">
                         {selectedIssueInConsole.category}
                       </span>
-                      <span className="text-neutral-400">·</span>
-                      <span className="text-neutral-500 font-medium">
+                      <span className="t-faint">·</span>
+                      <span className="t-muted font-medium">
                         {selectedIssueInConsole.locationName}
                       </span>
-                      <span className="text-neutral-400">·</span>
-                      <span className="font-mono text-neutral-400">
+                      <span className="t-faint">·</span>
+                      <span className="font-mono t-faint">
                         ID: {selectedIssueInConsole.id}
                       </span>
                     </div>
-                    <h3 className="text-xl font-extrabold text-neutral-900 mt-1">
+                    <h3 className="text-xl font-extrabold t-ink mt-1">
                       {selectedIssueInConsole.title}
                     </h3>
                   </div>
@@ -391,7 +391,7 @@ export const GovConsoleView: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => openAssignModal(selectedIssueInConsole)}
-                      className="px-3 py-1.5 text-xs font-semibold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 rounded-lg flex items-center gap-1.5 transition-colors"
+                      className="px-3 py-1.5 text-xs font-semibold t-ink-2 themed-muted hover:bg-neutral-200 rounded-lg flex items-center gap-1.5 transition-colors"
                     >
                       <Share2 className="w-3.5 h-3.5" />
                       <span>Assign</span>
@@ -408,7 +408,7 @@ export const GovConsoleView: React.FC = () => {
                 </div>
 
                 {/* Sub-tabs for Govt Workspace */}
-                <div className="flex border-b border-neutral-100 mt-4 mb-4 text-xs font-semibold">
+                <div className="flex border-b b-skin mt-4 mb-4 text-xs font-semibold">
                   {(['summary', 'timeline', 'actions'] as const).map((tab) => (
                     <button
                       key={tab}
@@ -416,7 +416,7 @@ export const GovConsoleView: React.FC = () => {
                       className={`pb-2.5 mr-6 capitalize transition-colors relative ${
                         consoleTab === tab
                           ? 'text-[#6D4AFF] font-bold'
-                          : 'text-neutral-500 hover:text-neutral-800'
+                          : 't-muted hover:t-ink-2'
                       }`}
                     >
                       {tab === 'actions' ? 'Official Actions & Dispatches' : tab}
@@ -437,43 +437,43 @@ export const GovConsoleView: React.FC = () => {
                           <Sparkles className="w-4 h-4" />
                           <span>AI-Generated Executive Summary</span>
                         </div>
-                        <span className="font-mono text-[11px] text-neutral-500">
+                        <span className="font-mono text-[11px] t-muted">
                           Confidence: {selectedIssueInConsole.confidenceScore}%
                         </span>
                       </div>
-                      <p className="text-neutral-700 leading-relaxed font-medium">
+                      <p className="t-ink-2 leading-relaxed font-medium">
                         {selectedIssueInConsole.aiSummary}
                       </p>
                     </div>
 
                     {/* Operational Details Grid */}
-                    <div className="grid grid-cols-2 gap-3 text-neutral-700">
-                      <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100">
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                    <div className="grid grid-cols-2 gap-3 t-ink-2">
+                      <div className="p-3 themed-muted rounded-xl border b-skin">
+                        <span className="text-[10px] t-faint font-bold uppercase block">
                           Affected Population
                         </span>
-                        <span className="font-semibold text-neutral-900 block mt-0.5">
+                        <span className="font-semibold t-ink block mt-0.5">
                           ~18,500 domestic households
                         </span>
                       </div>
 
-                      <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100">
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                      <div className="p-3 themed-muted rounded-xl border b-skin">
+                        <span className="text-[10px] t-faint font-bold uppercase block">
                           Assigned Lead
                         </span>
-                        <span className="font-semibold text-neutral-900 block mt-0.5 truncate">
+                        <span className="font-semibold t-ink block mt-0.5 truncate">
                           {selectedIssueInConsole.assignedOfficer || 'K. Rajendran, EE'}
                         </span>
                       </div>
                     </div>
 
                     {/* Key Observations */}
-                    <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100 space-y-1.5">
-                      <span className="text-[11px] font-bold text-neutral-800 block">
+                    <div className="p-3 themed-muted rounded-xl border b-skin space-y-1.5">
+                      <span className="text-[11px] font-bold t-ink-2 block">
                         Field Observations & Anomalies
                       </span>
                       {selectedIssueInConsole.aiObservations.map((obs, idx) => (
-                        <div key={idx} className="flex items-start gap-1.5 text-neutral-600">
+                        <div key={idx} className="flex items-start gap-1.5 t-ink-2">
                           <span className="text-[#6D4AFF] font-bold">•</span>
                           <span>{obs}</span>
                         </div>
@@ -488,10 +488,10 @@ export const GovConsoleView: React.FC = () => {
                     {selectedIssueInConsole.timeline.map((item) => (
                       <div
                         key={item.id}
-                        className="p-3 bg-neutral-50 rounded-xl border border-neutral-200/80 flex items-start justify-between gap-3"
+                        className="p-3 themed-muted rounded-xl border b-skin-strong flex items-start justify-between gap-3"
                       >
                         <div>
-                          <div className="font-bold text-neutral-900 flex items-center gap-1.5">
+                          <div className="font-bold t-ink flex items-center gap-1.5">
                             <span>{item.title}</span>
                             {item.current && (
                               <span className="text-[10px] bg-[#6D4AFF] text-white px-1.5 py-0.2 rounded font-mono">
@@ -499,9 +499,9 @@ export const GovConsoleView: React.FC = () => {
                               </span>
                             )}
                           </div>
-                          <p className="text-neutral-600 mt-1">{item.description}</p>
+                          <p className="t-ink-2 mt-1">{item.description}</p>
                         </div>
-                        <span className="font-mono text-neutral-400 text-[11px] shrink-0">
+                        <span className="font-mono t-faint text-[11px] shrink-0">
                           {item.timestamp}
                         </span>
                       </div>
@@ -513,8 +513,8 @@ export const GovConsoleView: React.FC = () => {
                 {consoleTab === 'actions' && (
                   <div className="space-y-4">
                     {/* Status Changer */}
-                    <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-200 text-xs space-y-2">
-                      <label className="font-bold text-neutral-800 block">
+                    <div className="p-4 themed-muted rounded-xl border b-skin text-xs space-y-2">
+                      <label className="font-bold t-ink-2 block">
                         Update Cluster Lifecycle Status:
                       </label>
                       <div className="flex flex-wrap gap-2">
@@ -526,7 +526,7 @@ export const GovConsoleView: React.FC = () => {
                               className={`px-3 py-1.5 rounded-lg font-semibold border transition-all ${
                                 selectedIssueInConsole.status === st
                                   ? 'bg-neutral-900 text-white border-neutral-900 shadow-xs'
-                                  : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100'
+                                  : 'themed-card t-ink-2 b-skin hover:themed-muted'
                               }`}
                             >
                               {st}
@@ -539,10 +539,10 @@ export const GovConsoleView: React.FC = () => {
                     {/* Official Broadcast Dispatch Form */}
                     <form
                       onSubmit={handlePublishUpdate}
-                      className="p-4 bg-neutral-50 rounded-xl border border-neutral-200 space-y-3 text-xs"
+                      className="p-4 themed-muted rounded-xl border b-skin space-y-3 text-xs"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-neutral-900">
+                        <span className="font-bold t-ink">
                           Publish Public Verified Dispatch
                         </span>
                         <span className="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[10px]">
@@ -551,19 +551,19 @@ export const GovConsoleView: React.FC = () => {
                       </div>
 
                       <div>
-                        <label className="block text-neutral-500 font-semibold mb-1">
+                        <label className="block t-muted font-semibold mb-1">
                           Responding Authority Name:
                         </label>
                         <input
                           type="text"
                           value={departmentSignature}
                           onChange={(e) => setDepartmentSignature(e.target.value)}
-                          className="w-full px-3 py-2 bg-white border border-neutral-200 rounded-lg text-xs"
+                          className="w-full px-3 py-2 themed-card border b-skin rounded-lg text-xs"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-neutral-500 font-semibold mb-1">
+                        <label className="block t-muted font-semibold mb-1">
                           Official Update Text (will appear with Verified Badge on Citizen View):
                         </label>
                         <textarea
@@ -571,7 +571,7 @@ export const GovConsoleView: React.FC = () => {
                           value={officialUpdateText}
                           onChange={(e) => setOfficialUpdateText(e.target.value)}
                           placeholder="e.g. Field teams have replaced auxiliary contact breaker. Line energization scheduled..."
-                          className="w-full px-3 py-2 bg-white border border-neutral-200 rounded-lg text-xs text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+                          className="w-full px-3 py-2 themed-card border b-skin rounded-lg text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
                         />
                       </div>
 
@@ -588,9 +588,9 @@ export const GovConsoleView: React.FC = () => {
               </div>
 
               {/* Footer info strip */}
-              <div className="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-400">
+              <div className="mt-6 pt-4 border-t b-skin flex items-center justify-between text-[11px] t-faint">
                 <span>Decision Support Protocol v3.8</span>
-                <span className="text-neutral-500">
+                <span className="t-muted">
                   Last telemetry refresh: 2 minutes ago
                 </span>
               </div>

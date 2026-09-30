@@ -174,16 +174,16 @@ export const ReportIssueModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-3xl w-full border border-neutral-200 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="themed-card rounded-2xl max-w-3xl w-full border b-skin shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Modal Header & Stepper */}
-        <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+        <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-[#6D4AFF] uppercase tracking-wider">
                 Citizen Signal Ingest
               </span>
-              <span className="text-neutral-300">·</span>
-              <span className="text-xs text-neutral-500 font-medium">Step 0{currentStep} of 05</span>
+              <span className="t-faint">·</span>
+              <span className="text-xs t-muted font-medium">Step 0{currentStep} of 05</span>
             </div>
             <div className="flex items-center gap-1.5 mt-1.5">
               {[1, 2, 3, 4, 5].map((s) => (
@@ -203,7 +203,7 @@ export const ReportIssueModal: React.FC = () => {
 
           <button
             onClick={() => setIsReportModalOpen(false)}
-            className="p-2 text-neutral-400 hover:text-neutral-700 rounded-lg hover:bg-neutral-100 transition-colors"
+            className="p-2 t-faint hover:t-ink-2 rounded-lg hover:themed-muted transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -215,8 +215,8 @@ export const ReportIssueModal: React.FC = () => {
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-2 duration-200">
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900">What’s the problem?</h3>
-                <p className="text-sm text-neutral-500 mt-1">
+                <h3 className="text-2xl font-bold t-ink">What’s the problem?</h3>
+                <p className="text-sm t-muted mt-1">
                   Select the public service category that most accurately describes the signal.
                 </p>
               </div>
@@ -232,13 +232,13 @@ export const ReportIssueModal: React.FC = () => {
                       className={`text-left p-4 rounded-xl border transition-all relative group ${
                         isSelected
                           ? 'border-[#6D4AFF] bg-[#6D4AFF]/5 ring-2 ring-[#6D4AFF]/20 shadow-xs'
-                          : 'border-neutral-200 bg-white hover:border-neutral-300 hover:-translate-y-0.5'
+                          : 'b-skin themed-card hover:b-skin-strong hover:-translate-y-0.5'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div
                           className={`p-2 rounded-lg ${
-                            isSelected ? 'bg-[#6D4AFF] text-white' : 'bg-neutral-100 text-neutral-600'
+                            isSelected ? 'bg-[#6D4AFF] text-white' : 'themed-muted t-ink-2'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
@@ -247,8 +247,8 @@ export const ReportIssueModal: React.FC = () => {
                           <CheckCircle2 className="w-4 h-4 text-[#6D4AFF] animate-in zoom-in-50" />
                         )}
                       </div>
-                      <div className="font-semibold text-sm text-neutral-900">{cat.label}</div>
-                      <div className="text-[11px] text-neutral-500 mt-1 line-clamp-2 leading-tight">
+                      <div className="font-semibold text-sm t-ink">{cat.label}</div>
+                      <div className="text-[11px] t-muted mt-1 line-clamp-2 leading-tight">
                         {cat.desc}
                       </div>
                     </button>
@@ -257,7 +257,7 @@ export const ReportIssueModal: React.FC = () => {
               </div>
 
               <div className="pt-2">
-                <label className="block text-xs font-semibold text-neutral-700 mb-1.5">
+                <label className="block text-xs font-semibold t-ink-2 mb-1.5">
                   Brief Issue Title
                 </label>
                 <input
@@ -265,7 +265,7 @@ export const ReportIssueModal: React.FC = () => {
                   value={reportTitle}
                   onChange={(e) => setReportTitle(e.target.value)}
                   placeholder="e.g. Feeder tripping and delayed cylinder refill"
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                  className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
                 />
               </div>
             </div>
@@ -275,22 +275,22 @@ export const ReportIssueModal: React.FC = () => {
           {currentStep === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-2 duration-200">
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900">Provide Evidence</h3>
-                <p className="text-sm text-neutral-500 mt-1">
+                <h3 className="text-2xl font-bold t-ink">Provide Evidence</h3>
+                <p className="text-sm t-muted mt-1">
                   Upload photos, voice notes, or text details. All identifiable personal metadata will be sanitized in the next step.
                 </p>
               </div>
 
               {/* Tabs */}
-              <div className="flex items-center gap-1 p-1 bg-neutral-100 rounded-lg max-w-md">
+              <div className="flex items-center gap-1 p-1 themed-muted rounded-lg max-w-md">
                 {(['image', 'voice', 'text', 'document'] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setEvidenceTab(tab)}
                     className={`flex-1 py-1.5 text-xs font-semibold capitalize rounded-md transition-all ${
                       evidenceTab === tab
-                        ? 'bg-white text-neutral-900 shadow-xs'
-                        : 'text-neutral-500 hover:text-neutral-800'
+                        ? 'themed-card t-ink shadow-xs'
+                        : 't-muted hover:t-ink-2'
                     }`}
                   >
                     {tab === 'image' ? 'Image / Photo' : tab}
@@ -301,27 +301,27 @@ export const ReportIssueModal: React.FC = () => {
               {/* Tab 1: Image / Photo Area */}
               {evidenceTab === 'image' && (
                 <div className="space-y-4">
-                  <div className="border-2 border-dashed border-neutral-200 hover:border-[#6D4AFF]/60 rounded-xl p-6 text-center bg-neutral-50/50 transition-colors cursor-pointer">
-                    <Upload className="w-8 h-8 mx-auto text-neutral-400 mb-2" />
-                    <p className="text-sm font-semibold text-neutral-800">
+                  <div className="border-2 border-dashed b-skin hover:border-[#6D4AFF]/60 rounded-xl p-6 text-center themed-muted transition-colors cursor-pointer">
+                    <Upload className="w-8 h-8 mx-auto t-faint mb-2" />
+                    <p className="text-sm font-semibold t-ink-2">
                       Drop evidence photo or click to browse
                     </p>
-                    <p className="text-xs text-neutral-400 mt-1">
+                    <p className="text-xs t-faint mt-1">
                       JPG, PNG, WebP up to 25MB. Automated face & plate anonymization will apply.
                     </p>
                   </div>
 
                   {/* Attached evidence preview */}
-                  <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 flex items-center justify-between">
+                  <div className="p-3 themed-muted rounded-xl border b-skin flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg bg-neutral-200 flex items-center justify-center font-mono text-[10px] text-neutral-600 font-bold border border-neutral-300">
+                      <div className="w-12 h-12 rounded-lg bg-neutral-200 flex items-center justify-center font-mono text-[10px] t-ink-2 font-bold border b-skin-strong">
                         RAW_IMG
                       </div>
                       <div>
-                        <div className="text-xs font-semibold text-neutral-800">
+                        <div className="text-xs font-semibold t-ink-2">
                           feeder_box_annagar_west.jpg
                         </div>
-                        <div className="text-[11px] text-neutral-400">
+                        <div className="text-[11px] t-faint">
                           3.4 MB · Captured 08:30 IST · Geotag stripped
                         </div>
                       </div>
@@ -335,7 +335,7 @@ export const ReportIssueModal: React.FC = () => {
 
               {/* Tab 2: Voice Audio Note */}
               {evidenceTab === 'voice' && (
-                <div className="text-center py-6 px-4 bg-neutral-50 rounded-xl border border-neutral-200 space-y-4">
+                <div className="text-center py-6 px-4 themed-muted rounded-xl border b-skin space-y-4">
                   <div className="relative inline-block">
                     <button
                       onClick={() => setIsRecording(!isRecording)}
@@ -350,10 +350,10 @@ export const ReportIssueModal: React.FC = () => {
                   </div>
 
                   <div>
-                    <div className="text-sm font-semibold text-neutral-800">
+                    <div className="text-sm font-semibold t-ink-2">
                       {isRecording ? 'Recording citizen statement...' : 'Click microphone to record voice signal'}
                     </div>
-                    <div className="font-mono text-xs text-neutral-500 mt-1">
+                    <div className="font-mono text-xs t-muted mt-1">
                       00:{recordingSeconds < 10 ? `0${recordingSeconds}` : recordingSeconds}
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export const ReportIssueModal: React.FC = () => {
                     </div>
                   )}
 
-                  <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                  <p className="text-xs t-faint max-w-sm mx-auto">
                     Voice will undergo automated pitch-shifting and named entity removal before public aggregation.
                   </p>
                 </div>
@@ -384,7 +384,7 @@ export const ReportIssueModal: React.FC = () => {
               {/* Tab 3: Detailed Text */}
               {evidenceTab === 'text' && (
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold t-ink-2 mb-1">
                     Describe Observations
                   </label>
                   <textarea
@@ -392,17 +392,17 @@ export const ReportIssueModal: React.FC = () => {
                     value={reportText}
                     onChange={(e) => setReportText(e.target.value)}
                     placeholder="Provide specific notes on what is observed (timings, affected streets, severity)..."
-                    className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                    className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
                   />
                 </div>
               )}
 
               {/* Tab 4: Document */}
               {evidenceTab === 'document' && (
-                <div className="border border-neutral-200 rounded-xl p-5 bg-neutral-50 text-center space-y-2">
-                  <FileText className="w-8 h-8 text-neutral-400 mx-auto" />
-                  <div className="text-sm font-semibold text-neutral-800">Upload official bill or ticket</div>
-                  <p className="text-xs text-neutral-400">
+                <div className="border b-skin rounded-xl p-5 themed-muted text-center space-y-2">
+                  <FileText className="w-8 h-8 t-faint mx-auto" />
+                  <div className="text-sm font-semibold t-ink-2">Upload official bill or ticket</div>
+                  <p className="text-xs t-faint">
                     PDF / Scan of previous grievance acknowledgment. Personal account numbers are redacted automatically.
                   </p>
                 </div>
@@ -414,31 +414,31 @@ export const ReportIssueModal: React.FC = () => {
           {currentStep === 3 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-2 duration-200">
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900">Select Issue Location</h3>
-                <p className="text-sm text-neutral-500 mt-1">
+                <h3 className="text-2xl font-bold t-ink">Select Issue Location</h3>
+                <p className="text-sm t-muted mt-1">
                   Pin the affected neighborhood. Your exact domestic coordinates are protected by 500m spatial fuzzing.
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1.5">
+                <label className="block text-xs font-semibold t-ink-2 mb-1.5">
                   Neighborhood or Ward
                 </label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 absolute left-3 top-3 text-neutral-400" />
+                  <MapPin className="w-4 h-4 absolute left-3 top-3 t-faint" />
                   <input
                     type="text"
                     value={selectedLocation}
                     onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="w-full pl-9 pr-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                    className="w-full pl-9 pr-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
                   />
                 </div>
               </div>
 
               {/* Interactive Vector Ward Mini-Map */}
-              <div className="border border-neutral-200 rounded-xl overflow-hidden bg-slate-50 relative">
-                <div className="p-3 bg-white border-b border-neutral-200 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-neutral-700">Chennai Metropolitan Area</span>
+              <div className="border b-skin rounded-xl overflow-hidden bg-slate-50 relative">
+                <div className="p-3 themed-card border-b b-skin flex items-center justify-between text-xs">
+                  <span className="font-semibold t-ink-2">Chennai Metropolitan Area</span>
                   <span className="text-[11px] text-emerald-700 font-medium">500m Fuzzing Mask Active</span>
                 </div>
 
@@ -488,8 +488,8 @@ export const ReportIssueModal: React.FC = () => {
             <div className="space-y-6 animate-in fade-in slide-in-from-right-2 duration-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-bold text-neutral-900">Your evidence is being protected</h3>
-                  <p className="text-sm text-neutral-500 mt-1">
+                  <h3 className="text-2xl font-bold t-ink">Your evidence is being protected</h3>
+                  <p className="text-sm t-muted mt-1">
                     Automated sanitization pipeline prepares a public-safe version.
                   </p>
                 </div>
@@ -509,7 +509,7 @@ export const ReportIssueModal: React.FC = () => {
                       {isScanning ? 'Sanitizing Evidence Package...' : 'All Identity Vectors Neutralized'}
                     </span>
                   </div>
-                  <span className="font-mono text-[11px] text-neutral-400">
+                  <span className="font-mono text-[11px] t-faint">
                     {scanProgress}% COMPLETE
                   </span>
                 </div>
@@ -543,7 +543,7 @@ export const ReportIssueModal: React.FC = () => {
 
               {/* BEFORE / AFTER SPLIT COMPARISON SLIDER */}
               <div>
-                <div className="flex items-center justify-between text-xs text-neutral-600 mb-2 font-medium">
+                <div className="flex items-center justify-between text-xs t-ink-2 mb-2 font-medium">
                   <span className="flex items-center gap-1">
                     <Eye className="w-3.5 h-3.5 text-rose-500" />
                     Original Raw Evidence
@@ -554,7 +554,7 @@ export const ReportIssueModal: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="relative h-56 rounded-xl overflow-hidden border border-neutral-300 select-none bg-neutral-100">
+                <div className="relative h-56 rounded-xl overflow-hidden border b-skin-strong select-none themed-muted">
                   {/* Base Layer: Protected Sanitized View */}
                   <div className="absolute inset-0 bg-slate-100 flex items-center justify-center p-4">
                     <div className="w-full h-full bg-slate-200/70 rounded-lg p-4 flex flex-col justify-between border border-slate-300 relative overflow-hidden">
@@ -562,23 +562,23 @@ export const ReportIssueModal: React.FC = () => {
                         <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
                           ✓ SANITIZED PUBLIC VIEW
                         </span>
-                        <span className="text-[10px] text-neutral-500 font-mono">HASH: 9e8a..12</span>
+                        <span className="text-[10px] t-muted font-mono">HASH: 9e8a..12</span>
                       </div>
 
                       {/* Visual representation of blurred areas */}
                       <div className="grid grid-cols-3 gap-3 my-auto">
-                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] text-neutral-600 font-mono">
+                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] t-ink-2 font-mono">
                           [FACE_BLUR]
                         </div>
-                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] text-neutral-600 font-mono">
+                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] t-ink-2 font-mono">
                           [PLATE_MASK]
                         </div>
-                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] text-neutral-600 font-mono">
+                        <div className="h-16 bg-neutral-300/80 backdrop-blur-md rounded-md border border-neutral-400/40 flex items-center justify-center text-[10px] t-ink-2 font-mono">
                           [AUDIO_SHIFT]
                         </div>
                       </div>
 
-                      <div className="text-[11px] text-neutral-600 flex items-center justify-between">
+                      <div className="text-[11px] t-ink-2 flex items-center justify-between">
                         <span>Safe for public municipal feed</span>
                         <span className="font-semibold text-emerald-700">Zero Identity Leaks</span>
                       </div>
@@ -629,7 +629,7 @@ export const ReportIssueModal: React.FC = () => {
                     className="absolute top-0 bottom-0 pointer-events-none z-10 flex items-center -ml-3"
                     style={{ left: `${splitSlider}%` }}
                   >
-                    <div className="w-6 h-6 rounded-full bg-white shadow-md border border-neutral-300 flex items-center justify-center text-neutral-600 text-[10px] font-bold">
+                    <div className="w-6 h-6 rounded-full themed-card shadow-md border b-skin-strong flex items-center justify-center t-ink-2 text-[10px] font-bold">
                       ↔
                     </div>
                   </div>
@@ -645,10 +645,10 @@ export const ReportIssueModal: React.FC = () => {
                 <div className="w-12 h-12 rounded-full bg-[#6D4AFF]/10 text-[#6D4AFF] mx-auto flex items-center justify-center mb-3">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-neutral-900">
+                <h3 className="text-2xl font-extrabold t-ink">
                   {isSubmittedComplete ? 'Signal Published & Grouped' : 'Processing Signal Ingestion'}
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-500">
+                <p className="text-xs sm:text-sm t-muted">
                   {isSubmittedComplete
                     ? `Your report was successfully grouped into the live civic dossier.`
                     : 'Running cryptographic privacy verification and spatial grouping.'}
@@ -656,7 +656,7 @@ export const ReportIssueModal: React.FC = () => {
               </div>
 
               {/* Progress Milestones */}
-              <div className="max-w-sm mx-auto bg-neutral-50 rounded-xl p-4 border border-neutral-200 text-left space-y-2.5 text-xs">
+              <div className="max-w-sm mx-auto themed-muted rounded-xl p-4 border b-skin text-left space-y-2.5 text-xs">
                 {[
                   { title: 'Report Received', done: submitStepIndex >= 1 },
                   { title: 'Privacy Protected (Metadata Scrubbed)', done: submitStepIndex >= 2 },
@@ -668,9 +668,9 @@ export const ReportIssueModal: React.FC = () => {
                     {item.done ? (
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     ) : (
-                      <div className="w-4 h-4 rounded-full border-2 border-neutral-300 shrink-0 animate-spin border-t-transparent" />
+                      <div className="w-4 h-4 rounded-full border-2 b-skin-strong shrink-0 animate-spin border-t-transparent" />
                     )}
-                    <span className={item.done ? 'text-neutral-800 font-semibold' : 'text-neutral-400'}>
+                    <span className={item.done ? 't-ink-2 font-semibold' : 't-faint'}>
                       {item.title}
                     </span>
                   </div>
@@ -693,11 +693,11 @@ export const ReportIssueModal: React.FC = () => {
         </div>
 
         {/* Modal Footer Controls */}
-        <div className="px-6 py-4 border-t border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+        <div className="px-6 py-4 border-t b-skin flex items-center justify-between themed-muted">
           {currentStep > 1 && currentStep < 5 ? (
             <button
               onClick={handleBack}
-              className="flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-neutral-900 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-100 transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold t-ink-2 hover:t-ink themed-card border b-skin rounded-lg hover:themed-muted transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back</span>

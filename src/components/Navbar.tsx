@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { ShieldCheck, Plus, Building2, User, Menu, X, Bell } from 'lucide-react';
+import { ShieldCheck, Plus, Building2, Menu, X, Bell, Sun, Moon } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const {
@@ -14,6 +14,8 @@ export const Navbar: React.FC = () => {
     setIsReportModalOpen,
     userReports,
     showToast,
+    theme,
+    toggleTheme,
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,7 +36,10 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80">
+    <header
+      className="theme-transition sticky top-0 z-40 backdrop-blur-md border-b b-skin"
+      style={{ background: 'var(--surface-glass)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* ZONE 1: Brand Wordmark (Single text element in display face) */}
@@ -43,15 +48,15 @@ export const Navbar: React.FC = () => {
               onClick={() => setActiveView('home')}
               className="text-left group flex items-baseline gap-1.5 focus:outline-none"
             >
-              <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-neutral-900 group-hover:text-[#6D4AFF] transition-colors">
+              <span className="text-xl sm:text-2xl font-extrabold tracking-tight group-hover:text-[#6D4AFF] transition-colors brand-text">
                 LokDrishti
               </span>
-              <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#6D4AFF]"></span>
+              <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full brand-bg live-dot"></span>
             </button>
           </div>
 
           {/* ZONE 2: Clean text navigation links (4-6 links) */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-neutral-600">
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium t-ink-2">
             {navLinks.map((item) => {
               const isActive = activeView === item.id;
               return (
@@ -61,12 +66,12 @@ export const Navbar: React.FC = () => {
                   className={`relative py-1 transition-colors whitespace-nowrap ${
                     isActive
                       ? 'text-[#6D4AFF] font-semibold'
-                      : 'hover:text-neutral-900 text-neutral-600'
+                      : 'hover:t-ink t-ink-2'
                   }`}
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6D4AFF] rounded-full" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full brand-bg animate-fade-in" />
                   )}
                 </button>
               );
@@ -88,7 +93,7 @@ export const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors relative"
+                className="p-2 t-ink-2 hover:t-ink hover:themed-muted rounded-lg transition-colors relative"
                 aria-label="Notifications"
               >
                 <Bell className="w-4 h-4" />
@@ -96,26 +101,36 @@ export const Navbar: React.FC = () => {
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-neutral-200 p-3 z-50 animate-in fade-in slide-in-from-top-2">
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-neutral-100 text-xs font-semibold text-neutral-700">
+                <div className="absolute right-0 mt-2 w-80 themed-card rounded-xl shadow-xl border b-skin p-3 z-50 animate-in fade-in slide-in-from-top-2">
+                  <div className="flex items-center justify-between pb-2 mb-2 border-b b-skin text-xs font-semibold t-ink-2">
                     <span>Signal Notifications</span>
                     <span className="text-[11px] text-[#6D4AFF] font-normal">2 new updates</span>
                   </div>
                   <div className="space-y-2 text-xs">
-                    <div className="p-2 bg-neutral-50 rounded-lg">
-                      <p className="font-medium text-neutral-900">Official update on Energy Supply</p>
-                      <p className="text-neutral-500 text-[11px] mt-0.5">TANGEDCO energized secondary circuit 3B in Anna Nagar.</p>
-                      <span className="text-[10px] text-neutral-400 mt-1 block">16:40 IST</span>
+                    <div className="p-2 themed-muted rounded-lg">
+                      <p className="font-medium t-ink">Official update on Energy Supply</p>
+                      <p className="t-muted text-[11px] mt-0.5">TANGEDCO energized secondary circuit 3B in Anna Nagar.</p>
+                      <span className="text-[10px] t-faint mt-1 block">16:40 IST</span>
                     </div>
-                    <div className="p-2 bg-neutral-50 rounded-lg">
-                      <p className="font-medium text-neutral-900">Your report matched 183 signals</p>
-                      <p className="text-neutral-500 text-[11px] mt-0.5">Automated AI spatial clustering grouped report into active cluster.</p>
-                      <span className="text-[10px] text-neutral-400 mt-1 block">1h ago</span>
+                    <div className="p-2 themed-muted rounded-lg">
+                      <p className="font-medium t-ink">Your report matched 183 signals</p>
+                      <p className="t-muted text-[11px] mt-0.5">Automated AI spatial clustering grouped report into active cluster.</p>
+                      <span className="text-[10px] t-faint mt-1 block">1h ago</span>
                     </div>
                   </div>
                 </div>
               )}
             </div>
+
+            {/* Dynamic theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg transition-all hover:scale-[1.06] active:scale-[0.96] themed-muted text-[#6D4AFF] shadow-sm animate-pop"
+              title={theme === 'light' ? 'Switch to Dark color grade' : 'Switch to Light color grade'}
+              aria-label="Toggle color theme"
+            >
+              {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            </button>
 
             {/* Gov Console Switcher */}
             <button
@@ -131,7 +146,7 @@ export const Navbar: React.FC = () => {
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors whitespace-nowrap ${
                 activeView === 'gov-console'
                   ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm'
-                  : 'text-neutral-700 bg-neutral-50 border-neutral-200 hover:bg-neutral-100'
+                  : 't-ink-2 themed-muted b-skin hover:themed-muted'
               }`}
             >
               <Building2 className="w-3.5 h-3.5" />
@@ -153,7 +168,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-neutral-600 hover:text-neutral-900 rounded-lg hover:bg-neutral-100"
+              className="lg:hidden p-2 t-ink-2 hover:t-ink rounded-lg hover:themed-muted"
               aria-label="Open navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -164,7 +179,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile navigation drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-neutral-200 bg-white/95 px-4 pt-3 pb-5 space-y-2">
+        <div className="lg:hidden border-t b-skin themed-card px-4 pt-3 pb-5 space-y-2">
           {navLinks.map((item) => (
             <button
               key={item.id}
@@ -172,13 +187,13 @@ export const Navbar: React.FC = () => {
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium ${
                 activeView === item.id
                   ? 'bg-[#6D4AFF]/10 text-[#6D4AFF]'
-                  : 'text-neutral-700 hover:bg-neutral-100'
+                  : 't-ink-2 hover:themed-muted'
               }`}
             >
               {item.label}
             </button>
           ))}
-          <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500">
+          <div className="pt-2 border-t b-skin flex items-center justify-between text-xs t-muted">
             <span>Location: Chennai · Tamil Nadu</span>
             <span className="text-emerald-600 font-medium">✓ Privacy Protected</span>
           </div>
