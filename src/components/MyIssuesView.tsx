@@ -30,7 +30,7 @@ export const MyIssuesView: React.FC = () => {
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-[#6D4AFF] uppercase tracking-wider mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-[var(--brand-600)] uppercase tracking-wider mb-1">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Anonymized Citizen Ledger</span>
             </div>
@@ -44,7 +44,7 @@ export const MyIssuesView: React.FC = () => {
 
           <button
             onClick={() => setIsReportModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#6D4AFF] hover:bg-[#5835ea] rounded-lg shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[var(--brand-600)] hover:bg-[var(--brand-700)] rounded-lg shadow-sm transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Report New Signal</span>
@@ -61,7 +61,7 @@ export const MyIssuesView: React.FC = () => {
             </p>
             <button
               onClick={() => setIsReportModalOpen(true)}
-              className="mt-4 px-4 py-2 text-xs font-semibold text-white bg-[#6D4AFF] rounded-lg"
+              className="mt-4 px-4 py-2 text-xs font-semibold text-white bg-[var(--brand-600)] rounded-lg"
             >
               Report an Issue
             </button>
@@ -74,11 +74,11 @@ export const MyIssuesView: React.FC = () => {
               return (
                 <div
                   key={report.id}
-                  className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs hover:border-[#6D4AFF]/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 card-lift"
+                  className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs hover:border-[var(--brand-600)]/50 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 card-lift"
                 >
                   <div className="space-y-2 flex-1">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="capitalize font-bold text-[#6D4AFF] bg-[#6D4AFF]/10 px-2.5 py-0.5 rounded">
+                      <span className="capitalize font-bold text-[var(--brand-600)] bg-[var(--brand-600)]/10 px-2.5 py-0.5 rounded">
                         {report.category}
                       </span>
                       <span className="t-muted flex items-center gap-1 font-medium">
@@ -125,7 +125,7 @@ export const MyIssuesView: React.FC = () => {
 
                     <button
                       onClick={() => setSelectedIssueId(matchedIssue.id)}
-                      className="flex items-center gap-1 text-xs font-semibold text-[#6D4AFF] hover:underline"
+                      className="flex items-center gap-1 text-xs font-semibold text-[var(--brand-600)] hover:underline"
                     >
                       <span>Track Official Dossier</span>
                       <ArrowRight className="w-3.5 h-3.5" />

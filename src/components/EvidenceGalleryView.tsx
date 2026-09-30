@@ -68,7 +68,7 @@ export const EvidenceGalleryView: React.FC = () => {
                 onClick={() => setFilterType(type)}
                 className={`px-3 py-1.5 rounded-lg font-semibold capitalize transition-all ${
                   filterType === type
-                    ? 'bg-[#6D4AFF] text-white shadow-xs'
+                    ? 'bg-[var(--brand-600)] text-white shadow-xs'
                     : 't-ink-2 hover:t-ink'
                 }`}
               >
@@ -84,14 +84,14 @@ export const EvidenceGalleryView: React.FC = () => {
             <div
               key={item.id}
               onClick={() => setActiveLightbox(item)}
-              className="themed-card rounded-2xl border b-skin-strong overflow-hidden shadow-xs hover:shadow-md hover:border-[#6D4AFF]/50 transition-all cursor-pointer flex flex-col justify-between group card-lift"
+              className="themed-card rounded-2xl border b-skin-strong overflow-hidden shadow-xs hover:shadow-md hover:border-[var(--brand-600)]/50 transition-all cursor-pointer flex flex-col justify-between group card-lift"
             >
               {/* Asset Visual Container */}
               <div className="relative h-48 bg-slate-100 flex items-center justify-center p-4 border-b b-skin overflow-hidden">
                 {/* Visual Asset Simulation */}
                 {item.type === 'voice' ? (
                   <div className="text-center space-y-2">
-                    <div className="w-14 h-14 rounded-full bg-[#6D4AFF]/10 text-[#6D4AFF] mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-full bg-[var(--brand-600)]/10 text-[var(--brand-600)] mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Volume2 className="w-6 h-6" />
                     </div>
                     <span className="text-xs font-mono font-bold t-ink-2 block">
@@ -127,8 +127,8 @@ export const EvidenceGalleryView: React.FC = () => {
                 )}
 
                 {/* Hover overlay hint */}
-                <div className="absolute inset-0 bg-[#6D4AFF]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                  <span className="text-xs font-bold text-[#6D4AFF] themed-card/95 px-3 py-1.5 rounded-lg shadow-sm">
+                <div className="absolute inset-0 bg-[var(--brand-600)]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                  <span className="text-xs font-bold text-[var(--brand-600)] themed-card/95 px-3 py-1.5 rounded-lg shadow-sm">
                     Inspect Redaction Layer
                   </span>
                 </div>
@@ -144,7 +144,7 @@ export const EvidenceGalleryView: React.FC = () => {
                   <span className="font-mono text-[11px]">{item.timestamp}</span>
                 </div>
 
-                <h3 className="font-extrabold text-base t-ink group-hover:text-[#6D4AFF] transition-colors line-clamp-1">
+                <h3 className="font-extrabold text-base t-ink group-hover:text-[var(--brand-600)] transition-colors line-clamp-1">
                   {item.title}
                 </h3>
 
@@ -303,7 +303,7 @@ export const EvidenceGalleryView: React.FC = () => {
                     setActiveLightbox(null);
                     setSelectedIssueId(id);
                   }}
-                  className="px-4 py-1.5 rounded-lg bg-[#6D4AFF] text-white font-semibold hover:bg-[#5835ea] transition-colors"
+                  className="px-4 py-1.5 rounded-lg bg-[var(--brand-600)] text-white font-semibold hover:bg-[var(--brand-700)] transition-colors"
                 >
                   View Related Issue Dossier →
                 </button>

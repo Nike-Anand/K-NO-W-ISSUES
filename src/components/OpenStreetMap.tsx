@@ -27,14 +27,14 @@ const L = ((LeafletModule as unknown as { default?: typeof LeafletModule }).defa
 
 /** Palette shared by the map pins and the floating legend. */
 export const CATEGORY_MAP_COLORS: Record<IssueCategory, string> = {
-  energy: '#6D4AFF',
+  energy: 'var(--brand-600)',
   water: '#3B82F6',
   transport: '#F59E0B',
   healthcare: '#10B981',
   infrastructure: '#EF4444',
   food: '#F97316',
   sanitation: '#0EA5E9',
-  education: '#8B5CF6',
+  education: 'var(--brand-500)',
   emergency: '#DC2626',
   other: '#64748B',
 };

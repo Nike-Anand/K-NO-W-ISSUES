@@ -21,7 +21,7 @@ interface AppContextType {
   issues: Issue[];
   selectedIssue: Issue | null;
   selectedIssueId: string | null;
-  activeView: 'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console';
+  activeView: 'landing' | 'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console';
   govConsoleSubTab: 'overview' | 'map' | 'clusters' | 'briefs' | 'cross-brics' | 'responses' | 'analytics';
   searchQuery: string;
   selectedCategoryFilter: string;
@@ -35,8 +35,12 @@ interface AppContextType {
   userConfirmations: Record<string, 'experienced' | 'not_affected' | null>;
   bricsSignals: BRICSSignal[];
   toasts: ToastItem[];
+  briefs: any[];
+  responses: any[];
+  departments: any[];
+  appConfig: any;
   // Actions
-  setActiveView: (view: 'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console') => void;
+  setActiveView: (view: 'landing' | 'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console') => void;
   setGovConsoleSubTab: (tab: 'overview' | 'map' | 'clusters' | 'briefs' | 'cross-brics' | 'responses' | 'analytics') => void;
   setSelectedIssueId: (id: string | null) => void;
   setSearchQuery: (q: string) => void;
@@ -52,6 +56,8 @@ interface AppContextType {
   assignIssue: (issueId: string, authorityName: string, officerName: string) => void;
   publishOfficialUpdate: (issueId: string, content: string, department: string, designation: string) => void;
   changeIssueStatus: (issueId: string, newStatus: IssueStatus) => void;
+  addResponse: (region: string, msg: string) => void;
+  addBrief: (title: string, type: string) => void;
   showToast: (message: string, type?: 'success' | 'info' | 'warning') => void;
   dismissToast: (id: string) => void;
   toggleTheme: () => void;
@@ -62,7 +68,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [issues, setIssues] = useState<Issue[]>([]);
   const [selectedIssueId, setSelectedIssueId] = useState<string | null>(null);
-  const [activeView, setActiveView] = useState<'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console'>('home');
+  const [activeView, setActiveView] = useState<'landing' | 'home' | 'explore' | 'trending' | 'evidence' | 'cross-brics' | 'my-issues' | 'gov-console'>('landing');
   const [govConsoleSubTab, setGovConsoleSubTab] = useState<'overview' | 'map' | 'clusters' | 'briefs' | 'cross-brics' | 'responses' | 'analytics'>('overview');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
@@ -75,6 +81,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [userConfirmations, setUserConfirmations] = useState<Record<string, 'experienced' | 'not_affected' | null>>({});
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const [bricsSignals, setBricsSignals] = useState<BRICSSignal[]>([]);
+  const [briefs, setBriefs] = useState<any[]>([]);
+  const [responses, setResponses] = useState<any[]>([]);
+  const [departments, setDepartments] = useState<any[]>([]);
+  const [appConfig, setAppConfig] = useState<any>(null);
 
   // Default citizen submitted reports
   const [userReports, setUserReports] = useState<CitizenReportSubmission[]>([]);
@@ -118,10 +128,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     };
 
     (async () => {
-      const [issuesRes, bricsRes, reportsRes] = await Promise.all([
+      const [issuesRes, bricsRes, reportsRes, briefsRes, responsesRes, deptsRes, configRes] = await Promise.all([
         fetchJson('/api/issues'),
         fetchJson('/api/brics'),
         fetchJson('/api/reports'),
+        fetchJson('/api/briefs'),
+        fetchJson('/api/responses'),
+        fetchJson('/api/departments'),
+        fetchJson('/api/config'),
       ]);
 
       if (issuesRes && Array.isArray(issuesRes)) {
@@ -140,6 +154,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setUserReports(reportsRes);
       } else {
         setUserReports([]);
+      }
+
+      if (briefsRes && Array.isArray(briefsRes)) setBriefs(briefsRes);
+      if (responsesRes && Array.isArray(responsesRes)) setResponses(responsesRes);
+      if (deptsRes && Array.isArray(deptsRes)) setDepartments(deptsRes);
+
+      if (configRes && Array.isArray(configRes)) {
+        const configMap: any = {};
+        configRes.forEach((item: any) => { configMap[item.id] = item; });
+        setAppConfig(configMap);
       }
 
       setIsLoading(false);
@@ -209,13 +233,43 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const newReportId = `rep-${Date.now()}`;
     const timestampStr = 'Just now';
 
-    // Find if matches an existing issue
+    // Find if matches an existing issue exactly by location and category
     let matchedIssue = issues.find(
       (iss) => iss.category === reportData.category && iss.locationName.toLowerCase().includes(reportData.location.toLowerCase().split(' ')[0] || '')
     );
 
+    let isNewIssue = false;
     if (!matchedIssue) {
-      matchedIssue = issues.find((iss) => iss.category === reportData.category) || issues[0];
+      isNewIssue = true;
+      matchedIssue = {
+        id: `iss-${Date.now()}`,
+        title: reportData.title,
+        category: reportData.category,
+        locationName: reportData.location,
+        district: 'Chennai',
+        state: 'Tamil Nadu',
+        country: 'India',
+        coordinates: { x: 50, y: 50, lat: 13.0827, lng: 80.2707 },
+        status: 'Under Review',
+        severity: 'Medium',
+        reportCount: 0, // Will be incremented below
+        confirmationsCount: 1,
+        notAffectedCount: 0,
+        trendPercentage: 100,
+        timeWindow: 'Just now',
+        description: reportData.evidenceContent,
+        impactDescription: 'New localized issue reported by citizen.',
+        aiSummary: reportData.evidenceContent || 'Automated AI Summary for new issue.',
+        aiObservations: ['Newly ingested citizen report'],
+        suggestedFollowUp: 'Verify with local authorities.',
+        confidenceScore: 85,
+        limitations: 'Limited initial data.',
+        updates: [],
+        timeline: [],
+        evidence: [],
+        sparklineData: [0],
+        affectedWards: [reportData.location]
+      };
     }
 
     const newReport: CitizenReportSubmission = {
@@ -228,11 +282,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       privacyProtected: true,
     };
 
+    fetch('/api/reports', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newReport) }).catch(console.error);
+    if (isNewIssue) {
+        fetch('/api/issues', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(matchedIssue) }).catch(console.error);
+    }
+
     setUserReports((prev) => [newReport, ...prev]);
 
     // Update Issue reportCount and trend in state
-    setIssues((prev) =>
-      prev.map((iss) => {
+    setIssues((prev) => {
+      let nextIssues = prev;
+      if (isNewIssue && matchedIssue) {
+        nextIssues = [matchedIssue, ...prev];
+      }
+      return nextIssues.map((iss) => {
         if (iss.id === matchedIssue!.id) {
           return {
             ...iss,
@@ -253,8 +316,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           };
         }
         return iss;
-      })
-    );
+      });
+    });
 
     showToast(`Report received & protected. Grouped with ${matchedIssue.reportCount + 1} signals.`, 'success');
   };
@@ -343,6 +406,30 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     showToast(`Status updated to: ${newStatus}`, 'info');
   };
 
+  const addResponse = (region: string, msg: string) => {
+    const newResponse = {
+      id: `r-${Date.now()}`,
+      region,
+      msg,
+      time: 'Just now'
+    };
+    fetch('/api/responses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newResponse) }).catch(console.error);
+    setResponses(prev => [newResponse, ...prev]);
+    showToast(`Broadcast sent to ${region}`, 'success');
+  };
+
+  const addBrief = (title: string, type: string) => {
+    const newBrief = {
+      id: `b-${Date.now()}`,
+      title,
+      type,
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    };
+    fetch('/api/briefs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newBrief) }).catch(console.error);
+    setBriefs(prev => [newBrief, ...prev]);
+    showToast(`Generated new brief: ${title}`, 'success');
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -365,6 +452,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         userConfirmations,
         bricsSignals,
         toasts,
+        briefs,
+        responses,
+        departments,
+        appConfig,
         setActiveView,
         setGovConsoleSubTab,
         setSelectedIssueId,
@@ -381,6 +472,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         assignIssue,
         publishOfficialUpdate,
         changeIssueStatus,
+        addResponse,
+        addBrief,
         showToast,
         dismissToast,
         toggleTheme,

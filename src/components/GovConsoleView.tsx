@@ -46,8 +46,27 @@ export const GovConsoleView: React.FC = () => {
     changeIssueStatus,
     setIsGovReportModalOpen,
     setIsAiExplanationOpen,
-    showToast,
+    briefs,
+    responses,
+    departments,
+    appConfig,
+    addBrief,
+    addResponse,
   } = useApp();
+
+  const [broadcastRegion, setBroadcastRegion] = useState('');
+  const [broadcastMessage, setBroadcastMessage] = useState('');
+
+  const handleSendBroadcast = () => {
+    if (!broadcastRegion || !broadcastMessage) return;
+    addResponse(broadcastRegion, broadcastMessage);
+    setBroadcastRegion('');
+    setBroadcastMessage('');
+  };
+
+  const handleGenerateBrief = () => {
+    addBrief(`On-Demand Brief - ${new Date().toLocaleTimeString()}`, 'Special');
+  };
 
   const [selectedIssueInConsole, setSelectedIssueInConsole] = useState<Issue>(issues[0]);
   const [consoleTab, setConsoleTab] = useState<'summary' | 'evidence' | 'timeline' | 'actions'>('summary');
@@ -151,7 +170,7 @@ export const GovConsoleView: React.FC = () => {
                     onClick={() => setGovConsoleSubTab(link.id as any)}
                     className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                       isActive
-                        ? 'bg-[#6D4AFF] text-white shadow-xs'
+                        ? 'bg-[var(--brand-600)] text-white shadow-xs'
                         : 't-ink-2 hover:themed-muted hover:t-ink'
                     }`}
                   >
@@ -172,15 +191,15 @@ export const GovConsoleView: React.FC = () => {
             <div className="space-y-1.5 t-ink-2">
               <div className="flex justify-between">
                 <span>Avg Acknowledgment:</span>
-                <span className="font-bold t-ink font-mono">42 min</span>
+                <span className="font-bold t-ink font-mono">{appConfig?.analytics?.avgAck || '42 min'}</span>
               </div>
               <div className="flex justify-between">
                 <span>Dispatch Resolution:</span>
-                <span className="font-bold t-ink font-mono">5.2 hrs</span>
+                <span className="font-bold t-ink font-mono">{appConfig?.analytics?.dispatchRes || '5.2 hrs'}</span>
               </div>
               <div className="flex justify-between">
                 <span>Citizen Verification:</span>
-                <span className="font-bold text-emerald-600 font-mono">91.4%</span>
+                <span className="font-bold text-emerald-600 font-mono">{appConfig?.analytics?.verificationRate || '91.4%'}</span>
               </div>
             </div>
           </div>
@@ -202,7 +221,7 @@ export const GovConsoleView: React.FC = () => {
 
             <div className="themed-card p-4 rounded-xl border b-skin-strong shadow-xs">
               <span className="text-[11px] font-semibold t-muted block">Active Clusters</span>
-              <span className="text-2xl font-extrabold text-[#6D4AFF] tabular-nums">
+              <span className="text-2xl font-extrabold text-[var(--brand-600)] tabular-nums">
                 {activeIssues}
               </span>
               <span className="text-[10px] t-faint block mt-0.5">Deduplicated</span>
@@ -234,7 +253,8 @@ export const GovConsoleView: React.FC = () => {
           </div>
 
           {/* HIERARCHICAL STATE -> DISTRICT -> ISSUE EXPLORER + DETAIL WORKSPACE */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {['overview', 'clusters'].includes(govConsoleSubTab) && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* LEFT PANE: Hierarchical Tree Navigation (4 cols) */}
             <div className="lg:col-span-5 themed-card rounded-2xl border b-skin-strong shadow-xs p-5 flex flex-col">
               <div className="flex items-center justify-between pb-3 border-b b-skin mb-3">
@@ -292,7 +312,7 @@ export const GovConsoleView: React.FC = () => {
                                   onClick={() => setSelectedIssueInConsole(iss)}
                                   className={`p-2.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                                     isSelected
-                                      ? 'bg-[#6D4AFF]/10 border-[#6D4AFF] t-ink'
+                                      ? 'bg-[var(--brand-600)]/10 border-[var(--brand-600)] t-ink'
                                       : 'themed-card b-skin hover:b-skin'
                                   }`}
                                 >
@@ -314,7 +334,7 @@ export const GovConsoleView: React.FC = () => {
                                         {iss.reportCount} reports
                                       </span>
                                       <span>·</span>
-                                      <span className="text-[#6D4AFF] font-bold">
+                                      <span className="text-[var(--brand-600)] font-bold">
                                         +{iss.trendPercentage}%
                                       </span>
                                     </div>
@@ -326,7 +346,7 @@ export const GovConsoleView: React.FC = () => {
                                         e.stopPropagation();
                                         openAssignModal(iss);
                                       }}
-                                      className="p-1 t-faint hover:text-[#6D4AFF] rounded"
+                                      className="p-1 t-faint hover:text-[var(--brand-600)] rounded"
                                       title="Assign Authority"
                                     >
                                       <Share2 className="w-3.5 h-3.5" />
@@ -371,7 +391,7 @@ export const GovConsoleView: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b b-skin">
                   <div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="font-bold text-[#6D4AFF] uppercase">
+                      <span className="font-bold text-[var(--brand-600)] uppercase">
                         {selectedIssueInConsole.category}
                       </span>
                       <span className="t-faint">·</span>
@@ -415,13 +435,13 @@ export const GovConsoleView: React.FC = () => {
                       onClick={() => setConsoleTab(tab)}
                       className={`pb-2.5 mr-6 capitalize transition-colors relative ${
                         consoleTab === tab
-                          ? 'text-[#6D4AFF] font-bold'
+                          ? 'text-[var(--brand-600)] font-bold'
                           : 't-muted hover:t-ink-2'
                       }`}
                     >
                       {tab === 'actions' ? 'Official Actions & Dispatches' : tab}
                       {consoleTab === tab && (
-                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6D4AFF] rounded-full" />
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--brand-600)] rounded-full" />
                       )}
                     </button>
                   ))}
@@ -431,9 +451,9 @@ export const GovConsoleView: React.FC = () => {
                 {consoleTab === 'summary' && (
                   <div className="space-y-4 text-xs">
                     {/* Executive AI Brief */}
-                    <div className="p-4 rounded-xl bg-[#6D4AFF]/5 border border-[#6D4AFF]/15 space-y-2">
+                    <div className="p-4 rounded-xl bg-[var(--brand-600)]/5 border border-[var(--brand-600)]/15 space-y-2">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5 font-bold text-[#6D4AFF]">
+                        <div className="flex items-center gap-1.5 font-bold text-[var(--brand-600)]">
                           <Sparkles className="w-4 h-4" />
                           <span>AI-Generated Executive Summary</span>
                         </div>
@@ -474,7 +494,7 @@ export const GovConsoleView: React.FC = () => {
                       </span>
                       {selectedIssueInConsole.aiObservations.map((obs, idx) => (
                         <div key={idx} className="flex items-start gap-1.5 t-ink-2">
-                          <span className="text-[#6D4AFF] font-bold">•</span>
+                          <span className="text-[var(--brand-600)] font-bold">•</span>
                           <span>{obs}</span>
                         </div>
                       ))}
@@ -494,7 +514,7 @@ export const GovConsoleView: React.FC = () => {
                           <div className="font-bold t-ink flex items-center gap-1.5">
                             <span>{item.title}</span>
                             {item.current && (
-                              <span className="text-[10px] bg-[#6D4AFF] text-white px-1.5 py-0.2 rounded font-mono">
+                              <span className="text-[10px] bg-[var(--brand-600)] text-white px-1.5 py-0.2 rounded font-mono">
                                 ACTIVE
                               </span>
                             )}
@@ -571,13 +591,13 @@ export const GovConsoleView: React.FC = () => {
                           value={officialUpdateText}
                           onChange={(e) => setOfficialUpdateText(e.target.value)}
                           placeholder="e.g. Field teams have replaced auxiliary contact breaker. Line energization scheduled..."
-                          className="w-full px-3 py-2 themed-card border b-skin rounded-lg text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+                          className="w-full px-3 py-2 themed-card border b-skin rounded-lg text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]"
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full py-2 bg-[#6D4AFF] hover:bg-[#5835ea] text-white font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition-colors"
+                        className="w-full py-2 bg-[var(--brand-600)] hover:bg-[var(--brand-700)] text-white font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <Send className="w-3.5 h-3.5" />
                         <span>Publish Verified Update to Citizen Signal Feed</span>
@@ -596,6 +616,153 @@ export const GovConsoleView: React.FC = () => {
               </div>
             </div>
           </div>
+          )}
+
+          {govConsoleSubTab === 'briefs' && (
+            <div className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs flex flex-col gap-6">
+              <div className="flex justify-between items-center border-b b-skin pb-4">
+                <div>
+                  <h2 className="text-lg font-bold t-ink flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-[var(--brand-600)]" />
+                    Executive Briefs Engine
+                  </h2>
+                  <p className="t-muted text-xs mt-1">AI-compiled daily operational briefings and state-level policy impact reports.</p>
+                </div>
+                <button onClick={handleGenerateBrief} className="px-4 py-2 bg-[var(--brand-600)] text-white rounded-lg text-xs font-semibold flex items-center gap-2 hover:opacity-90">
+                  <Printer className="w-4 h-4" /> Generate New Brief
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {briefs.map((brief, i) => (
+                  <div key={i} className="border b-skin rounded-xl p-4 hover:b-skin-strong transition cursor-pointer flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold text-[var(--brand-600)] uppercase bg-[var(--brand-600)]/10 px-2 py-0.5 rounded">{brief.type}</span>
+                      <h3 className="t-ink font-bold text-sm mt-2">{brief.title}</h3>
+                      <p className="text-xs t-muted mt-1">Generated by LokDrishti AI. Covers 14 active clusters and 3 resolved major incidents.</p>
+                    </div>
+                    <div className="flex justify-between items-center mt-4 pt-3 border-t b-skin text-xs t-faint font-mono">
+                      <span>{brief.date}</span>
+                      <span className="flex items-center gap-1 hover:text-[var(--brand-600)]"><Download className="w-3.5 h-3.5" /> PDF</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {govConsoleSubTab === 'responses' && (
+            <div className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs flex flex-col gap-6">
+              <div className="border-b b-skin pb-4">
+                <h2 className="text-lg font-bold t-ink flex items-center gap-2">
+                  <Send className="w-5 h-5 text-[var(--brand-600)]" />
+                  Central Response Center
+                </h2>
+                <p className="t-muted text-xs mt-1">Unified messaging interface to dispatch broadcasts across all districts.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="font-bold text-sm t-ink">New Broadcast Message</div>
+                  <input type="text" value={broadcastRegion} onChange={(e) => setBroadcastRegion(e.target.value)} placeholder="Target Region (e.g. Chennai Metropolitan)" className="w-full text-xs p-2.5 rounded-lg border b-skin bg-transparent t-ink focus:outline-none focus:border-[var(--brand-600)]" />
+                  <textarea rows={4} value={broadcastMessage} onChange={(e) => setBroadcastMessage(e.target.value)} placeholder="Enter broadcast alert message..." className="w-full text-xs p-2.5 rounded-lg border b-skin bg-transparent t-ink focus:outline-none focus:border-[var(--brand-600)]"></textarea>
+                  <div className="flex gap-2">
+                    <button onClick={handleSendBroadcast} className="flex-1 py-2 bg-[var(--brand-600)] text-white rounded-lg text-xs font-bold hover:opacity-90">Send Broadcast Alert</button>
+                    <button className="px-4 py-2 bg-rose-600 text-white rounded-lg text-xs font-bold hover:opacity-90">Emergency Overide</button>
+                  </div>
+                </div>
+                <div>
+                  <div className="font-bold text-sm t-ink mb-3">Recent Dispatches</div>
+                  <div className="space-y-2">
+                    {responses.map((msg, i) => (
+                      <div key={i} className="p-3 border b-skin rounded-lg bg-[var(--surface-muted)]">
+                        <div className="flex justify-between text-[10px] font-mono t-muted mb-1">
+                          <span className="font-bold text-[var(--brand-600)]">{msg.region}</span>
+                          <span>{msg.time}</span>
+                        </div>
+                        <p className="text-xs t-ink-2">{msg.msg}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {govConsoleSubTab === 'analytics' && (
+            <div className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs flex flex-col gap-6">
+              <div className="border-b b-skin pb-4">
+                <h2 className="text-lg font-bold t-ink flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-[var(--brand-600)]" />
+                  Advanced Signal Analytics
+                </h2>
+                <p className="t-muted text-xs mt-1">Predictive civic infrastructure models and historical resolution times.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="border b-skin rounded-xl p-4 bg-[var(--surface-muted)]">
+                  <div className="text-[10px] font-bold t-muted uppercase tracking-wider">Average Resolution Time</div>
+                  <div className="text-2xl font-black t-ink mt-2">{appConfig?.analytics?.averageResolutionTime || '14.2 hrs'}</div>
+                  <div className="text-xs text-emerald-600 font-bold mt-1">{appConfig?.analytics?.resolutionDelta || '↓ 2.1 hrs from last week'}</div>
+                </div>
+                <div className="border b-skin rounded-xl p-4 bg-[var(--surface-muted)]">
+                  <div className="text-[10px] font-bold t-muted uppercase tracking-wider">Most Reported Category</div>
+                  <div className="text-2xl font-black t-ink mt-2">{appConfig?.analytics?.mostReportedCategory || 'Energy (⚡)'}</div>
+                  <div className="text-xs text-rose-600 font-bold mt-1">{appConfig?.analytics?.categoryDelta || '↑ 14% spike today'}</div>
+                </div>
+                <div className="border b-skin rounded-xl p-4 bg-[var(--surface-muted)]">
+                  <div className="text-[10px] font-bold t-muted uppercase tracking-wider">Citizen Trust Score</div>
+                  <div className="text-2xl font-black t-ink mt-2">{appConfig?.analytics?.citizenTrustScore || '94.8%'}</div>
+                  <div className="text-xs text-emerald-600 font-bold mt-1">{appConfig?.analytics?.trustDelta || 'High verification rate'}</div>
+                </div>
+              </div>
+              <div className="border b-skin rounded-xl p-4 h-[200px] flex items-end gap-2 items-stretch pt-8 relative">
+                <span className="absolute top-3 left-4 text-xs font-bold t-ink">Issue Influx (Last 7 Days)</span>
+                {(appConfig?.analytics?.issueInflux || [40, 60, 45, 80, 50, 90, 70]).map((val: number, i: number) => (
+                  <div key={i} className="flex-1 bg-[var(--brand-600)]/20 hover:bg-[var(--brand-600)]/40 rounded-t flex flex-col justify-end transition cursor-crosshair">
+                    <div className="w-full bg-[var(--brand-600)] rounded-t transition-all" style={{ height: `${val}%` }}></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {govConsoleSubTab === 'departments' && (
+            <div className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs flex flex-col gap-6">
+              <div className="border-b b-skin pb-4 flex justify-between items-center">
+                <div>
+                  <h2 className="text-lg font-bold t-ink flex items-center gap-2">
+                    <Building className="w-5 h-5 text-[var(--brand-600)]" />
+                    Authorities & SLAs
+                  </h2>
+                  <p className="t-muted text-xs mt-1">Track department-level performance metrics and compliance.</p>
+                </div>
+                <div className="bg-emerald-50 text-emerald-700 px-3 py-1 rounded text-xs font-bold border border-emerald-200">
+                  Overall Compliance: 92%
+                </div>
+              </div>
+              
+              <div className="overflow-x-auto border b-skin rounded-xl">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-[var(--surface-muted)] text-[10px] uppercase font-bold t-faint border-b b-skin">
+                      <th className="p-3">Department</th>
+                      <th className="p-3">Active Issues</th>
+                      <th className="p-3">Avg Resolution</th>
+                      <th className="p-3">SLA Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-xs t-ink-2">
+                    {departments.map((dept, i) => (
+                      <tr key={i} className="border-b b-skin last:border-0 hover:bg-[var(--surface-muted)] transition">
+                        <td className="p-3 font-bold t-ink">{dept.name}</td>
+                        <td className="p-3 font-mono">{dept.issues}</td>
+                        <td className="p-3 font-mono">{dept.time}</td>
+                        <td className={`p-3 font-bold ${dept.color}`}>{dept.status}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

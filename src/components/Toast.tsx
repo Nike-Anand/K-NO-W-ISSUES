@@ -24,7 +24,7 @@ export const Toast: React.FC = () => {
           ) : t.type === 'warning' ? (
             <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           ) : (
-            <Info className="w-4 h-4 text-[#8B5CF6] shrink-0 mt-0.5" />
+            <Info className="w-4 h-4 text-[var(--brand-500)] shrink-0 mt-0.5" />
           )}
 
           <div className="flex-1 text-xs t-ink-2 leading-snug font-medium">
@@ -33,7 +33,7 @@ export const Toast: React.FC = () => {
 
           <button
             onClick={() => dismissToast(t.id)}
-            className="t-faint hover:text-[#6D4AFF] p-0.5 -mr-1"
+            className="t-faint hover:text-[var(--brand-600)] p-0.5 -mr-1"
           >
             <X className="w-3.5 h-3.5" />
           </button>

@@ -34,8 +34,8 @@ export const CrossBricsView: React.FC = () => {
         {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-[#6D4AFF] uppercase tracking-wider mb-1">
-              <Globe2 className="w-4 h-4 text-[#6D4AFF]" />
+            <div className="flex items-center gap-2 text-xs font-bold text-[var(--brand-600)] uppercase tracking-wider mb-1">
+              <Globe2 className="w-4 h-4 text-[var(--brand-600)]" />
               <span>International Development Intelligence</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight t-ink">
@@ -53,7 +53,7 @@ export const CrossBricsView: React.FC = () => {
                 onClick={() => setActiveCountry(c)}
                 className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
                   activeCountry === c
-                    ? 'bg-[#6D4AFF] text-white shadow-xs'
+                    ? 'bg-[var(--brand-600)] text-white shadow-xs'
                     : 't-ink-2 hover:t-ink'
                 }`}
               >
@@ -83,13 +83,13 @@ export const CrossBricsView: React.FC = () => {
 
             <div className="flex items-center gap-4 text-xs">
               <span className="flex items-center gap-1 font-semibold t-ink-2">
-                🇮🇳 India <span className="text-[#6D4AFF]">+34% ↑</span>
+                🇮🇳 India <span className="text-[var(--brand-600)]">+34% ↑</span>
               </span>
               <span className="flex items-center gap-1 font-semibold t-ink-2">
-                🇧🇷 Brazil <span className="text-[#6D4AFF]">+22% ↑</span>
+                🇧🇷 Brazil <span className="text-[var(--brand-600)]">+22% ↑</span>
               </span>
               <span className="flex items-center gap-1 font-semibold t-ink-2">
-                🇿🇦 South Africa <span className="text-[#6D4AFF]">+28% ↑</span>
+                🇿🇦 South Africa <span className="text-[var(--brand-600)]">+28% ↑</span>
               </span>
             </div>
           </div>
@@ -98,13 +98,13 @@ export const CrossBricsView: React.FC = () => {
           <div className="relative h-44 sm:h-52 w-full bg-slate-50/80 rounded-xl border border-slate-200/80 p-4 flex items-center justify-around overflow-hidden">
             {/* World Grid Mesh lines */}
             <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 800 200">
-              <ellipse cx="400" cy="100" rx="360" ry="85" fill="none" stroke="#6D4AFF" strokeDasharray="4 4" />
+              <ellipse cx="400" cy="100" rx="360" ry="85" fill="none" stroke="var(--brand-600)" strokeDasharray="4 4" />
               <line x1="40" y1="100" x2="760" y2="100" stroke="#CBD5E1" strokeWidth="1" />
               {/* Connecting arch lines between nodes */}
               <path
                 d="M 220,120 Q 380,40 540,110"
                 fill="none"
-                stroke="#6D4AFF"
+                stroke="var(--brand-600)"
                 strokeWidth="2"
                 strokeDasharray="6 3"
               />
@@ -122,7 +122,7 @@ export const CrossBricsView: React.FC = () => {
               <div className="text-xl">🇧🇷</div>
               <div className="text-xs font-bold t-ink mt-1">São Paulo</div>
               <div className="text-[11px] t-muted font-mono">2,450 Signals</div>
-              <div className="text-[10px] text-[#6D4AFF] font-bold mt-0.5">+22% Velocity</div>
+              <div className="text-[10px] text-[var(--brand-600)] font-bold mt-0.5">+22% Velocity</div>
             </div>
 
             {/* Node 2: South Africa */}
@@ -130,15 +130,15 @@ export const CrossBricsView: React.FC = () => {
               <div className="text-xl">🇿🇦</div>
               <div className="text-xs font-bold t-ink mt-1">Durban / eThekwini</div>
               <div className="text-[11px] t-muted font-mono">1,890 Signals</div>
-              <div className="text-[10px] text-[#6D4AFF] font-bold mt-0.5">+28% Velocity</div>
+              <div className="text-[10px] text-[var(--brand-600)] font-bold mt-0.5">+28% Velocity</div>
             </div>
 
             {/* Node 3: India */}
-            <div className="relative z-10 text-center themed-card/95 p-3 rounded-xl border border-[#6D4AFF]/50 ring-2 ring-[#6D4AFF]/20 shadow-md w-36 sm:w-44">
+            <div className="relative z-10 text-center themed-card/95 p-3 rounded-xl border border-[var(--brand-600)]/50 ring-2 ring-[var(--brand-600)]/20 shadow-md w-36 sm:w-44">
               <div className="text-xl">🇮🇳</div>
               <div className="text-xs font-bold t-ink mt-1">Chennai / Peninsular</div>
               <div className="text-[11px] t-muted font-mono">4,210 Signals</div>
-              <div className="text-[10px] text-[#6D4AFF] font-bold mt-0.5">+34% Velocity</div>
+              <div className="text-[10px] text-[var(--brand-600)] font-bold mt-0.5">+34% Velocity</div>
             </div>
           </div>
 
@@ -156,14 +156,14 @@ export const CrossBricsView: React.FC = () => {
           {filtered.map((sig) => (
             <div
               key={sig.id}
-              className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs hover:border-[#6D4AFF]/40 transition-all flex flex-col justify-between group card-lift"
+              className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs hover:border-[var(--brand-600)]/40 transition-all flex flex-col justify-between group card-lift"
             >
               <div>
                 <div className="flex items-center justify-between text-xs mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{sig.flag}</span>
                     <span className="font-bold t-ink">{sig.country}</span>
-                    <span className="capitalize text-[#6D4AFF] bg-[#6D4AFF]/10 px-2 py-0.5 rounded text-[11px] font-semibold">
+                    <span className="capitalize text-[var(--brand-600)] bg-[var(--brand-600)]/10 px-2 py-0.5 rounded text-[11px] font-semibold">
                       {sig.category}
                     </span>
                   </div>
@@ -200,7 +200,7 @@ export const CrossBricsView: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-[10px] t-faint block">Velocity</span>
-                    <span className="font-bold text-[#6D4AFF] tabular-nums">+{sig.trend}%</span>
+                    <span className="font-bold text-[var(--brand-600)] tabular-nums">+{sig.trend}%</span>
                   </div>
                   <div>
                     <span className="text-[10px] t-faint block">Confidence</span>
@@ -212,7 +212,7 @@ export const CrossBricsView: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedIssueId('issue-energy-01')}
-                  className="flex items-center gap-1 font-semibold text-[#6D4AFF] hover:underline"
+                  className="flex items-center gap-1 font-semibold text-[var(--brand-600)] hover:underline"
                 >
                   <span>Correlated Dossier</span>
                   <ArrowRight className="w-3.5 h-3.5" />

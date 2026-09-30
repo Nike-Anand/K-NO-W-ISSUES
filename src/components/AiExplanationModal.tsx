@@ -19,7 +19,7 @@ export const AiExplanationModal: React.FC = () => {
       <div className="themed-card rounded-2xl max-w-lg w-full border b-skin shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150">
         <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#6D4AFF]" />
+            <Sparkles className="w-4 h-4 text-[var(--brand-600)]" />
             <h3 className="font-extrabold t-ink text-sm">
               AI Issue Intelligence Synthesis
             </h3>
@@ -47,21 +47,21 @@ export const AiExplanationModal: React.FC = () => {
           </div>
 
           {/* Quantified factors */}
-          <div className="p-4 bg-[#6D4AFF]/5 rounded-xl border border-[#6D4AFF]/20 space-y-2.5">
+          <div className="p-4 bg-[var(--brand-600)]/5 rounded-xl border border-[var(--brand-600)]/20 space-y-2.5">
             <div className="flex items-center gap-2 font-bold t-ink-2">
-              <CheckCircle2 className="w-4 h-4 text-[#6D4AFF]" />
+              <CheckCircle2 className="w-4 h-4 text-[var(--brand-600)]" />
               <span>{currentIssue.reportCount.toLocaleString()} grouped reports</span>
             </div>
             <div className="flex items-center gap-2 font-bold t-ink-2">
-              <CheckCircle2 className="w-4 h-4 text-[#6D4AFF]" />
+              <CheckCircle2 className="w-4 h-4 text-[var(--brand-600)]" />
               <span>+{currentIssue.trendPercentage}% acceleration in past 24 hours</span>
             </div>
             <div className="flex items-center gap-2 font-bold t-ink-2">
-              <CheckCircle2 className="w-4 h-4 text-[#6D4AFF]" />
+              <CheckCircle2 className="w-4 h-4 text-[var(--brand-600)]" />
               <span>7 affected municipal distribution sectors ({currentIssue.affectedWards.join(', ')})</span>
             </div>
             <div className="flex items-center gap-2 font-bold t-ink-2">
-              <CheckCircle2 className="w-4 h-4 text-[#6D4AFF]" />
+              <CheckCircle2 className="w-4 h-4 text-[var(--brand-600)]" />
               <span>High citizen confirmation index ({currentIssue.confirmationsCount} affirmations)</span>
             </div>
           </div>

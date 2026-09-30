@@ -51,7 +51,7 @@ export const AssignIssueModal: React.FC = () => {
         {/* Header */}
         <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-[#6D4AFF]" />
+            <Building2 className="w-4 h-4 text-[var(--brand-600)]" />
             <h3 className="font-extrabold t-ink text-sm">Assign Issue Authority</h3>
           </div>
 
@@ -66,8 +66,8 @@ export const AssignIssueModal: React.FC = () => {
         {/* Form Body */}
         <form onSubmit={handleAssign} className="p-6 space-y-4 text-xs">
           {/* Issue summary strip */}
-          <div className="p-3 bg-[#6D4AFF]/5 rounded-xl border border-[#6D4AFF]/15">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#6D4AFF] block">
+          <div className="p-3 bg-[var(--brand-600)]/5 rounded-xl border border-[var(--brand-600)]/15">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--brand-600)] block">
               Target Signal
             </span>
             <div className="font-bold t-ink text-sm mt-0.5">
@@ -81,13 +81,13 @@ export const AssignIssueModal: React.FC = () => {
           {/* Suggested Authority */}
           <div>
             <label className="block font-bold t-ink-2 mb-1.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#6D4AFF]" />
+              <Sparkles className="w-3.5 h-3.5 text-[var(--brand-600)]" />
               <span>Suggested Department / Authority:</span>
             </label>
             <select
               value={selectedAuthority}
               onChange={(e) => setSelectedAuthority(e.target.value)}
-              className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]"
             >
               {AUTHORITIES_LIST.map((auth) => (
                 <option key={auth.id} value={auth.name}>
@@ -106,7 +106,7 @@ export const AssignIssueModal: React.FC = () => {
               type="text"
               value={officerName}
               onChange={(e) => setOfficerName(e.target.value)}
-              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg font-medium t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]"
             />
           </div>
 
@@ -119,7 +119,7 @@ export const AssignIssueModal: React.FC = () => {
               rows={3}
               value={urgencyNote}
               onChange={(e) => setUrgencyNote(e.target.value)}
-              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+              className="w-full px-3.5 py-2 themed-muted border b-skin rounded-lg t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]"
             />
           </div>
 
@@ -136,7 +136,7 @@ export const AssignIssueModal: React.FC = () => {
 
             <button
               type="submit"
-              className="px-5 py-2 rounded-lg bg-[#6D4AFF] hover:bg-[#5835ea] text-white font-bold shadow-sm transition-all flex items-center gap-1.5"
+              className="px-5 py-2 rounded-lg bg-[var(--brand-600)] hover:bg-[var(--brand-700)] text-white font-bold shadow-sm transition-all flex items-center gap-1.5"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Assign Issue</span>

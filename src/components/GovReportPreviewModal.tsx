@@ -51,7 +51,7 @@ export const GovReportPreviewModal: React.FC = () => {
         {/* Document Action Bar */}
         <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted print:hidden">
           <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-[#6D4AFF]" />
+            <FileText className="w-4 h-4 text-[var(--brand-600)]" />
             <span className="text-xs font-bold uppercase tracking-wider t-ink-2">
               Government Executive Briefing Document
             </span>
@@ -63,7 +63,7 @@ export const GovReportPreviewModal: React.FC = () => {
               disabled={isGeneratingSnapshot}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border b-skin themed-card text-xs font-semibold t-ink-2 hover:themed-muted transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#6D4AFF]" />
+              <Sparkles className="w-3.5 h-3.5 text-[var(--brand-600)]" />
               <span>{isGeneratingSnapshot ? 'Sealing...' : 'Generate Snapshot'}</span>
             </button>
 
@@ -135,7 +135,7 @@ export const GovReportPreviewModal: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] t-muted uppercase font-semibold block">24h Velocity</span>
-                <span className="text-xl font-bold text-[#6D4AFF] font-mono">
+                <span className="text-xl font-bold text-[var(--brand-600)] font-mono">
                   +{issue.trendPercentage}%
                 </span>
               </div>

@@ -67,7 +67,7 @@ export const IssueDetailModal: React.FC = () => {
         {/* Header Bar */}
         <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6D4AFF]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[var(--brand-600)]">
               Signal Dossier
             </span>
             <span className="t-faint">·</span>
@@ -85,7 +85,7 @@ export const IssueDetailModal: React.FC = () => {
 
             <button
               onClick={() => setIsGovReportModalOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#6D4AFF] bg-[#6D4AFF]/10 rounded-lg hover:bg-[#6D4AFF]/20 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[var(--brand-600)] bg-[var(--brand-600)]/10 rounded-lg hover:bg-[var(--brand-600)]/20 transition-colors"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Executive Brief</span>
@@ -104,7 +104,7 @@ export const IssueDetailModal: React.FC = () => {
         <div className="px-6 sm:px-8 pt-6 pb-4 border-b b-skin">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
             <div className="flex items-center gap-2 text-xs font-semibold">
-              <span className="capitalize text-[#6D4AFF] bg-[#6D4AFF]/10 px-2 py-0.5 rounded">
+              <span className="capitalize text-[var(--brand-600)] bg-[var(--brand-600)]/10 px-2 py-0.5 rounded">
                 ⚡ {selectedIssue.category}
               </span>
               <span className="t-muted flex items-center gap-1">
@@ -156,7 +156,7 @@ export const IssueDetailModal: React.FC = () => {
             </div>
             <div>
               <span className="text-[11px] font-medium t-muted block">24h Velocity</span>
-              <span className="text-xl sm:text-2xl font-extrabold text-[#6D4AFF] tabular-nums flex items-center">
+              <span className="text-xl sm:text-2xl font-extrabold text-[var(--brand-600)] tabular-nums flex items-center">
                 +{selectedIssue.trendPercentage}%
                 <TrendingUp className="w-4 h-4 ml-1 inline" />
               </span>
@@ -191,7 +191,7 @@ export const IssueDetailModal: React.FC = () => {
 
             <button
               onClick={() => setIsAiExplanationOpen(true)}
-              className="flex items-center gap-1.5 text-xs text-[#6D4AFF] hover:underline font-semibold"
+              className="flex items-center gap-1.5 text-xs text-[var(--brand-600)] hover:underline font-semibold"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Why this issue is surfaced</span>
@@ -213,13 +213,13 @@ export const IssueDetailModal: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-3 relative transition-colors ${
                   activeTab === tab.id
-                    ? 'text-[#6D4AFF] font-bold'
+                    ? 'text-[var(--brand-600)] font-bold'
                     : 't-muted hover:t-ink-2'
                 }`}
               >
                 {tab.label}
                 {activeTab === tab.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6D4AFF] rounded-full" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--brand-600)] rounded-full" />
                 )}
               </button>
             ))}
@@ -253,11 +253,11 @@ export const IssueDetailModal: React.FC = () => {
               )}
 
               {/* AI Cluster Summary Card */}
-              <div className="p-5 rounded-xl border border-[#6D4AFF]/20 bg-[#6D4AFF]/5 space-y-3">
+              <div className="p-5 rounded-xl border border-[var(--brand-600)]/20 bg-[var(--brand-600)]/5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#6D4AFF]" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#6D4AFF]">
+                    <Sparkles className="w-4 h-4 text-[var(--brand-600)]" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--brand-600)]">
                       AI Cluster Synthesis
                     </h4>
                   </div>
@@ -272,7 +272,7 @@ export const IssueDetailModal: React.FC = () => {
                 <div className="space-y-1.5 pt-2">
                   {selectedIssue.aiObservations.map((obs, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs t-ink-2">
-                      <span className="text-[#6D4AFF] font-bold">•</span>
+                      <span className="text-[var(--brand-600)] font-bold">•</span>
                       <span>{obs}</span>
                     </div>
                   ))}
@@ -331,7 +331,7 @@ export const IssueDetailModal: React.FC = () => {
                     <div
                       className={`absolute -left-6 top-1 w-5 h-5 rounded-full flex items-center justify-center ring-4 ring-white ${
                         event.current
-                          ? 'bg-[#6D4AFF] text-white shadow-xs'
+                          ? 'bg-[var(--brand-600)] text-white shadow-xs'
                           : event.completed
                           ? 'bg-emerald-500 text-white'
                           : 'bg-neutral-200 t-faint'
@@ -349,7 +349,7 @@ export const IssueDetailModal: React.FC = () => {
                         <span className="font-bold t-ink flex items-center gap-1.5">
                           <span>{event.title}</span>
                           {event.current && (
-                            <span className="text-[10px] bg-[#6D4AFF] text-white px-1.5 py-0.2 rounded font-mono">
+                            <span className="text-[10px] bg-[var(--brand-600)] text-white px-1.5 py-0.2 rounded font-mono">
                               CURRENT
                             </span>
                           )}
@@ -399,7 +399,7 @@ export const IssueDetailModal: React.FC = () => {
                       <div className="h-32 bg-slate-100 flex items-center justify-center relative p-3 border-b b-skin">
                         {ev.type === 'voice' ? (
                           <div className="text-center space-y-2">
-                            <Volume2 className="w-8 h-8 text-[#6D4AFF] mx-auto animate-pulse" />
+                            <Volume2 className="w-8 h-8 text-[var(--brand-600)] mx-auto animate-pulse" />
                             <span className="text-xs font-mono font-semibold t-ink-2 block">
                               Voice Note ({ev.audioDuration})
                             </span>
@@ -501,7 +501,7 @@ export const IssueDetailModal: React.FC = () => {
                       value={quickUpdateText}
                       onChange={(e) => setQuickUpdateText(e.target.value)}
                       placeholder="e.g. Auxiliary feeder circuit 3B has been energized. Load testing in progress..."
-                      className="w-full px-3 py-2 themed-card border b-skin rounded-md text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]"
+                      className="w-full px-3 py-2 themed-card border b-skin rounded-md text-xs t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]"
                     />
                   </div>
 
@@ -515,7 +515,7 @@ export const IssueDetailModal: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-1.5 text-xs font-semibold text-white bg-[#6D4AFF] hover:bg-[#5835ea] rounded-md shadow-xs flex items-center gap-1"
+                      className="px-4 py-1.5 text-xs font-semibold text-white bg-[var(--brand-600)] hover:bg-[var(--brand-700)] rounded-md shadow-xs flex items-center gap-1"
                     >
                       <Send className="w-3 h-3" />
                       <span>Publish Update</span>

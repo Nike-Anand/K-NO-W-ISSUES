@@ -44,7 +44,7 @@ const DEFAULT_VIEW = DISTRICT_VIEWS.Chennai;
 const CHENNAI_ZONES: MapZone[] = [
   {
     id: 'zone-anna-nagar',
-    color: '#6D4AFF',
+    color: 'var(--brand-600)',
     points: [
       [13.112, 80.182],
       [13.112, 80.224],
@@ -235,7 +235,7 @@ export const ExploreView: React.FC = () => {
         {/* FLOATING LEGEND (lifted so the OpenStreetMap attribution stays legible) */}
         <div className="absolute left-4 bottom-12 z-20 themed-card/95 backdrop-blur-md rounded-xl p-3 border b-skin/90 shadow-sm text-xs">
           <div className="font-bold t-ink-2 mb-2 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#6D4AFF]" />
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-600)]" />
             <span>Signal Severity & Aggregation</span>
           </div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px] t-ink-2">
@@ -244,7 +244,7 @@ export const ExploreView: React.FC = () => {
               <span>Critical / Urgent</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#6D4AFF]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[var(--brand-600)]" />
               <span>High Activity</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -266,7 +266,7 @@ export const ExploreView: React.FC = () => {
           <div className="absolute right-4 bottom-4 z-20 max-w-sm w-full themed-card/95 backdrop-blur-md rounded-2xl p-5 border b-skin/90 shadow-xl animate-in slide-in-from-bottom-3 duration-200">
             <div className="flex items-center justify-between pb-2 border-b b-skin text-xs mb-3">
               <div className="flex items-center gap-1.5 font-bold t-ink">
-                <MapPin className="w-3.5 h-3.5 text-[#6D4AFF]" />
+                <MapPin className="w-3.5 h-3.5 text-[var(--brand-600)]" />
                 <span className="uppercase tracking-wide">{activePin.locationName}</span>
               </div>
               <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
@@ -292,7 +292,7 @@ export const ExploreView: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] t-faint block">Velocity</span>
-                <span className="text-sm font-bold text-[#6D4AFF] tabular-nums">
+                <span className="text-sm font-bold text-[var(--brand-600)] tabular-nums">
                   +{activePin.trendPercentage}%
                 </span>
               </div>
@@ -315,7 +315,7 @@ export const ExploreView: React.FC = () => {
 
               <button
                 onClick={() => setSelectedIssueId(activePin.id)}
-                className="flex-1 py-1.5 px-3 text-xs font-semibold rounded-lg bg-[#6D4AFF] hover:bg-[#5835ea] text-white flex items-center justify-center gap-1 transition-colors"
+                className="flex-1 py-1.5 px-3 text-xs font-semibold rounded-lg bg-[var(--brand-600)] hover:bg-[var(--brand-700)] text-white flex items-center justify-center gap-1 transition-colors"
               >
                 <span>Open Issue</span>
                 <ArrowRight className="w-3.5 h-3.5" />

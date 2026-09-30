@@ -179,7 +179,7 @@ export const ReportIssueModal: React.FC = () => {
         <div className="px-6 py-4 border-b b-skin flex items-center justify-between themed-muted">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#6D4AFF] uppercase tracking-wider">
+              <span className="text-xs font-bold text-[var(--brand-600)] uppercase tracking-wider">
                 Citizen Signal Ingest
               </span>
               <span className="t-faint">·</span>
@@ -191,7 +191,7 @@ export const ReportIssueModal: React.FC = () => {
                   key={s}
                   className={`h-1.5 rounded-full transition-all ${
                     s === currentStep
-                      ? 'w-8 bg-[#6D4AFF]'
+                      ? 'w-8 bg-[var(--brand-600)]'
                       : s < currentStep
                       ? 'w-5 bg-emerald-500'
                       : 'w-4 bg-neutral-200'
@@ -231,20 +231,20 @@ export const ReportIssueModal: React.FC = () => {
                       onClick={() => setCategory(cat.id)}
                       className={`text-left p-4 rounded-xl border transition-all relative group ${
                         isSelected
-                          ? 'border-[#6D4AFF] bg-[#6D4AFF]/5 ring-2 ring-[#6D4AFF]/20 shadow-xs'
+                          ? 'border-[var(--brand-600)] bg-[var(--brand-600)]/5 ring-2 ring-[var(--brand-600)]/20 shadow-xs'
                           : 'b-skin themed-card hover:b-skin-strong hover:-translate-y-0.5'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div
                           className={`p-2 rounded-lg ${
-                            isSelected ? 'bg-[#6D4AFF] text-white' : 'themed-muted t-ink-2'
+                            isSelected ? 'bg-[var(--brand-600)] text-white' : 'themed-muted t-ink-2'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
                         </div>
                         {isSelected && (
-                          <CheckCircle2 className="w-4 h-4 text-[#6D4AFF] animate-in zoom-in-50" />
+                          <CheckCircle2 className="w-4 h-4 text-[var(--brand-600)] animate-in zoom-in-50" />
                         )}
                       </div>
                       <div className="font-semibold text-sm t-ink">{cat.label}</div>
@@ -265,7 +265,7 @@ export const ReportIssueModal: React.FC = () => {
                   value={reportTitle}
                   onChange={(e) => setReportTitle(e.target.value)}
                   placeholder="e.g. Feeder tripping and delayed cylinder refill"
-                  className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                  className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]/20 focus:border-[var(--brand-600)]"
                 />
               </div>
             </div>
@@ -301,7 +301,7 @@ export const ReportIssueModal: React.FC = () => {
               {/* Tab 1: Image / Photo Area */}
               {evidenceTab === 'image' && (
                 <div className="space-y-4">
-                  <div className="border-2 border-dashed b-skin hover:border-[#6D4AFF]/60 rounded-xl p-6 text-center themed-muted transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed b-skin hover:border-[var(--brand-600)]/60 rounded-xl p-6 text-center themed-muted transition-colors cursor-pointer">
                     <Upload className="w-8 h-8 mx-auto t-faint mb-2" />
                     <p className="text-sm font-semibold t-ink-2">
                       Drop evidence photo or click to browse
@@ -342,7 +342,7 @@ export const ReportIssueModal: React.FC = () => {
                       className={`w-16 h-16 rounded-full flex items-center justify-center text-white transition-all shadow-md ${
                         isRecording
                           ? 'bg-rose-600 ring-4 ring-rose-200 animate-pulse'
-                          : 'bg-[#6D4AFF] hover:bg-[#5e38f5]'
+                          : 'bg-[var(--brand-600)] hover:bg-[var(--brand-700)]'
                       }`}
                     >
                       {isRecording ? <Square className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
@@ -364,7 +364,7 @@ export const ReportIssueModal: React.FC = () => {
                       {[40, 70, 90, 45, 80, 100, 60, 85, 30, 95, 50, 75].map((h, i) => (
                         <span
                           key={i}
-                          className="w-1 bg-[#6D4AFF] rounded-full animate-bounce"
+                          className="w-1 bg-[var(--brand-600)] rounded-full animate-bounce"
                           style={{
                             height: `${h}%`,
                             animationDelay: `${i * 70}ms`,
@@ -392,7 +392,7 @@ export const ReportIssueModal: React.FC = () => {
                     value={reportText}
                     onChange={(e) => setReportText(e.target.value)}
                     placeholder="Provide specific notes on what is observed (timings, affected streets, severity)..."
-                    className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                    className="w-full px-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]/20 focus:border-[var(--brand-600)]"
                   />
                 </div>
               )}
@@ -430,7 +430,7 @@ export const ReportIssueModal: React.FC = () => {
                     type="text"
                     value={selectedLocation}
                     onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="w-full pl-9 pr-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF]"
+                    className="w-full pl-9 pr-3.5 py-2.5 themed-muted border b-skin rounded-lg text-sm t-ink focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]/20 focus:border-[var(--brand-600)]"
                   />
                 </div>
               </div>
@@ -454,18 +454,18 @@ export const ReportIssueModal: React.FC = () => {
                     {/* Ward contours */}
                     <path
                       d="M 60,40 Q 140,20 220,60 T 360,110 L 330,170 Q 200,190 90,140 Z"
-                      fill="#6D4AFF"
+                      fill="var(--brand-600)"
                       fillOpacity="0.08"
-                      stroke="#6D4AFF"
+                      stroke="var(--brand-600)"
                       strokeWidth="1.5"
                     />
                   </svg>
 
                   {/* Pin with privacy blur ring */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                    <div className="w-20 h-20 rounded-full border border-[#6D4AFF]/40 bg-[#6D4AFF]/10 flex items-center justify-center animate-ping opacity-30" />
+                    <div className="w-20 h-20 rounded-full border border-[var(--brand-600)]/40 bg-[var(--brand-600)]/10 flex items-center justify-center animate-ping opacity-30" />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-8 h-8 rounded-full bg-[#6D4AFF] text-white flex items-center justify-center shadow-lg">
+                      <div className="w-8 h-8 rounded-full bg-[var(--brand-600)] text-white flex items-center justify-center shadow-lg">
                         <MapPin className="w-4 h-4" />
                       </div>
                     </div>
@@ -494,7 +494,7 @@ export const ReportIssueModal: React.FC = () => {
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs font-mono text-[#6D4AFF] font-bold block">
+                  <span className="text-xs font-mono text-[var(--brand-600)] font-bold block">
                     # Evidence without exposure.
                   </span>
                 </div>
@@ -504,7 +504,7 @@ export const ReportIssueModal: React.FC = () => {
               <div className="p-4 rounded-xl bg-neutral-900 text-white space-y-3">
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#8B5CF6] animate-spin" />
+                    <Sparkles className="w-4 h-4 text-[var(--brand-500)] animate-spin" />
                     <span className="font-semibold">
                       {isScanning ? 'Sanitizing Evidence Package...' : 'All Identity Vectors Neutralized'}
                     </span>
@@ -516,7 +516,7 @@ export const ReportIssueModal: React.FC = () => {
 
                 <div className="w-full bg-neutral-800 rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-[#6D4AFF] to-emerald-400 h-1.5 transition-all duration-300"
+                    className="bg-gradient-to-r from-[var(--brand-600)] to-emerald-400 h-1.5 transition-all duration-300"
                     style={{ width: `${scanProgress}%` }}
                   />
                 </div>
@@ -548,7 +548,7 @@ export const ReportIssueModal: React.FC = () => {
                     <Eye className="w-3.5 h-3.5 text-rose-500" />
                     Original Raw Evidence
                   </span>
-                  <span className="flex items-center gap-1 font-semibold text-[#6D4AFF]">
+                  <span className="flex items-center gap-1 font-semibold text-[var(--brand-600)]">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     Protected Public Preview ({splitSlider}% split)
                   </span>
@@ -642,7 +642,7 @@ export const ReportIssueModal: React.FC = () => {
           {currentStep === 5 && (
             <div className="space-y-6 text-center py-4 animate-in fade-in duration-300">
               <div className="max-w-md mx-auto space-y-2">
-                <div className="w-12 h-12 rounded-full bg-[#6D4AFF]/10 text-[#6D4AFF] mx-auto flex items-center justify-center mb-3">
+                <div className="w-12 h-12 rounded-full bg-[var(--brand-600)]/10 text-[var(--brand-600)] mx-auto flex items-center justify-center mb-3">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-extrabold t-ink">
@@ -709,7 +709,7 @@ export const ReportIssueModal: React.FC = () => {
           {currentStep < 5 ? (
             <button
               onClick={handleNext}
-              className="flex items-center gap-1.5 px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-[#6D4AFF] hover:bg-[#5e38f5] rounded-lg shadow-sm transition-all"
+              className="flex items-center gap-1.5 px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-[var(--brand-600)] hover:bg-[var(--brand-700)] rounded-lg shadow-sm transition-all"
             >
               <span>{currentStep === 4 ? 'Confirm & Submit Signal' : 'Next Step'}</span>
               <ArrowRight className="w-4 h-4" />

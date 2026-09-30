@@ -79,8 +79,8 @@ export const TrendingView: React.FC = () => {
         {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-[#6D4AFF] uppercase tracking-wider mb-1">
-              <Flame className="w-4 h-4 text-[#6D4AFF]" />
+            <div className="flex items-center gap-2 text-xs font-bold text-[var(--brand-600)] uppercase tracking-wider mb-1">
+              <Flame className="w-4 h-4 text-[var(--brand-600)]" />
               <span>Signal Acceleration Index</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight t-ink">
@@ -98,7 +98,7 @@ export const TrendingView: React.FC = () => {
                 onClick={() => setTimeFilter(t)}
                 className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
                   timeFilter === t
-                    ? 'bg-[#6D4AFF] text-white shadow-xs'
+                    ? 'bg-[var(--brand-600)] text-white shadow-xs'
                     : 't-ink-2 hover:t-ink'
                 }`}
               >
@@ -114,7 +114,7 @@ export const TrendingView: React.FC = () => {
             const isTop = index === 0;
             const strokeColor =
               issue.category === 'energy'
-                ? '#6D4AFF'
+                ? 'var(--brand-600)'
                 : issue.category === 'water'
                 ? '#3B82F6'
                 : issue.category === 'healthcare'
@@ -125,20 +125,20 @@ export const TrendingView: React.FC = () => {
               <div
                 key={issue.id}
                 className={`themed-card rounded-2xl border transition-all p-5 sm:p-6 shadow-xs hover:shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-6 group card-lift ${
-                  isTop ? 'border-[#6D4AFF]/40 ring-1 ring-[#6D4AFF]/10' : 'b-skin-strong'
+                  isTop ? 'border-[var(--brand-600)]/40 ring-1 ring-[var(--brand-600)]/10' : 'b-skin-strong'
                 }`}
               >
                 {/* Left section: Rank + Category icon + Title + Metadata */}
                 <div className="flex items-start gap-4 flex-1">
                   <div className="flex flex-col items-center justify-center w-8 pt-1 text-center shrink-0">
-                    <span className="font-mono text-lg font-extrabold t-faint group-hover:text-[#6D4AFF] transition-colors">
+                    <span className="font-mono text-lg font-extrabold t-faint group-hover:text-[var(--brand-600)] transition-colors">
                       0{index + 1}
                     </span>
                   </div>
 
                   <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="capitalize font-bold text-[#6D4AFF] bg-[#6D4AFF]/10 px-2 py-0.5 rounded">
+                      <span className="capitalize font-bold text-[var(--brand-600)] bg-[var(--brand-600)]/10 px-2 py-0.5 rounded">
                         {issue.category}
                       </span>
                       <span className="t-muted flex items-center gap-1 font-medium">
@@ -153,7 +153,7 @@ export const TrendingView: React.FC = () => {
 
                     <h3
                       onClick={() => setSelectedIssueId(issue.id)}
-                      className="text-lg sm:text-xl font-extrabold t-ink group-hover:text-[#6D4AFF] transition-colors cursor-pointer"
+                      className="text-lg sm:text-xl font-extrabold t-ink group-hover:text-[var(--brand-600)] transition-colors cursor-pointer"
                     >
                       {issue.title}
                     </h3>
@@ -167,7 +167,7 @@ export const TrendingView: React.FC = () => {
                 {/* Middle section: Real-time sparkline graph + Velocity badge */}
                 <div className="flex items-center justify-between sm:justify-end gap-6 pt-3 lg:pt-0 border-t lg:border-t-0 b-skin">
                   <div className="text-right">
-                    <div className="flex items-center gap-1 text-base sm:text-lg font-extrabold text-[#6D4AFF] tabular-nums">
+                    <div className="flex items-center gap-1 text-base sm:text-lg font-extrabold text-[var(--brand-600)] tabular-nums">
                       <span>+{issue.trendPercentage}%</span>
                       <TrendingUp className="w-4 h-4 inline" />
                     </div>
@@ -192,7 +192,7 @@ export const TrendingView: React.FC = () => {
                   {/* Action CTA */}
                   <button
                     onClick={() => setSelectedIssueId(issue.id)}
-                    className="p-2 t-faint hover:text-[#6D4AFF] hover:bg-[#6D4AFF]/10 rounded-xl transition-all"
+                    className="p-2 t-faint hover:text-[var(--brand-600)] hover:bg-[var(--brand-600)]/10 rounded-xl transition-all"
                     title="Open Issue Dossier"
                   >
                     <ArrowUpRight className="w-5 h-5" />

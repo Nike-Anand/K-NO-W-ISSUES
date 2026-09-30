@@ -8,16 +8,16 @@
 :root,
 [data-theme="light"] {
   /* ---- Color grading: brand & accent ramp ---- */
-  --brand-50: #f2efff;
-  --brand-100: #e6e3ff;
-  --brand-200: #cfc6ff;
-  --brand-300: #b3a1ff;
-  --brand-400: #9B6CFF;
-  --brand-500: #8B5CF6;
-  --brand-600: #6D4AFF;
-  --brand-700: #5a37e6;
-  --brand-800: #4728b8;
-  --brand-weak: rgba(109, 74, 255, 0.1);
+  --brand-50: #ecfdf5;
+  --brand-100: #d1fae5;
+  --brand-200: #a7f3d0;
+  --brand-300: #6ee7b7;
+  --brand-400: #34d399;
+  --brand-500: #10b981;
+  --brand-600: #059669;
+  --brand-700: #047857;
+  --brand-800: #065f46;
+  --brand-weak: rgba(5, 150, 105, 0.1);
 
   /* ---- Surfaces (light) ---- */
   --surface: #ffffff;
@@ -55,23 +55,23 @@
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 1px rgba(16, 24, 40, 0.04);
   --shadow-md: 0 8px 20px rgba(16, 24, 40, 0.12);
   --shadow-lg: 0 18px 44px rgba(16, 24, 40, 0.2);
-  --shadow-brand: 0 8px 22px rgba(109, 74, 255, 0.28);
+  --shadow-brand: 0 8px 22px rgba(37, 99, 235, 0.28);
 
   /* ---- Typography ---- */
   --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 /* ---- Dynamic theme: dark color grade ---- */
 [data-theme="dark"] {
-  --brand-50: #1b1830;
-  --brand-100: #241f40;
-  --brand-200: #3a3266;
-  --brand-300: #5b4ea0;
-  --brand-400: #7C5CFF;
-  --brand-500: #8B5CF6;
-  --brand-600: #A06BFF;
-  --brand-700: #7C5CFF;
-  --brand-800: #5a37e6;
-  --brand-weak: rgba(160, 107, 255, 0.14);
+  --brand-50: #064e3b;
+  --brand-100: #065f46;
+  --brand-200: #047857;
+  --brand-300: #059669;
+  --brand-400: #10b981;
+  --brand-500: #34d399;
+  --brand-600: #6ee7b7;
+  --brand-700: #a7f3d0;
+  --brand-800: #d1fae5;
+  --brand-weak: rgba(16, 185, 129, 0.14);
 
   --surface: #141829;
   --surface-2: #0c0f1d;
@@ -96,14 +96,14 @@
   --info: #60a5fa;
   --info-weak: rgba(96, 165, 250, 0.16);
 
-  --mesh-1: rgba(109, 74, 255, 0.1);
-  --mesh-2: rgba(139, 92, 246, 0.08);
+  --mesh-1: rgba(37, 99, 235, 0.1);
+  --mesh-2: rgba(59, 130, 246, 0.08);
   --mesh-3: rgba(16, 185, 129, 0.04);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.55);
-  --shadow-brand: 0 8px 22px rgba(160, 107, 255, 0.35);
+  --shadow-brand: 0 8px 22px rgba(59, 130, 246, 0.35);
 }
 
 /* ---- Global foundation (token-driven so body follows theme) ---- */
@@ -222,6 +222,14 @@ html[data-theme="dark"] { color-scheme: dark; }
   50% { box-shadow: 0 0 0 5px currentColor; opacity: 1; }
 }
 .live-dot { animation: glow-pulse 1.6s ease-in-out infinite; }
+
+/* ---- Button pulse ring ---- */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--brand-400); }
+  70% { box-shadow: 0 0 0 12px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.btn-pulse { animation: pulse-ring 2.5s infinite; }
 
 /* ---- Ping rings (radar echoes for map markers) ---- */
 @keyframes ping-ring {

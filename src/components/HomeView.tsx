@@ -38,6 +38,8 @@ export const HomeView: React.FC = () => {
     confirmIssue,
     userConfirmations,
     isLoading,
+    appConfig,
+    responses,
   } = useApp();
 
   const categories = [
@@ -66,7 +68,9 @@ export const HomeView: React.FC = () => {
   const secondaryIssues = filteredIssues.filter((i) => i.id !== featuredIssue.id);
 
   // Available locations for switching
-  const locations = ['Chennai', 'Bengaluru', 'Coimbatore', 'Mumbai'];
+  const locations = appConfig?.locations?.areas || ['Chennai', 'Bengaluru', 'Coimbatore', 'Mumbai'];
+  const aiInsightsData = appConfig?.aiInsights || { confidence: '94%', insights: [] };
+  const officialDispatches = responses.length > 0 ? responses.slice(0, 3) : [];
 
   return (
     <div className="min-h-screen themed-page pb-20 theme-transition">
@@ -74,7 +78,7 @@ export const HomeView: React.FC = () => {
       <div className="themed-card border-b b-skin py-2.5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 t-ink-2">
-            <MapPin className="w-3.5 h-3.5 text-[#6D4AFF]" />
+            <MapPin className="w-3.5 h-3.5 text-[var(--brand-600)]" />
             <span className="font-semibold t-ink">{selectedArea} · Tamil Nadu</span>
             <span className="t-faint">|</span>
             <div className="flex items-center gap-1.5">
@@ -82,7 +86,7 @@ export const HomeView: React.FC = () => {
               <select
                 value={selectedArea}
                 onChange={(e) => setSelectedArea(e.target.value)}
-                className="bg-transparent font-medium t-ink-2 hover:text-[#6D4AFF] focus:outline-none cursor-pointer"
+                className="bg-transparent font-medium t-ink-2 hover:text-[var(--brand-600)] focus:outline-none cursor-pointer"
               >
                 {locations.map((loc) => (
                   <option key={loc} value={loc}>
@@ -123,7 +127,7 @@ export const HomeView: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search an area or issue (Energy, Water, Road, Hospital, Transport)..."
-              className="w-full pl-12 pr-28 py-3.5 themed-card border b-skin/90 rounded-xl shadow-xs text-sm sm:text-base t-ink placeholder:t-faint focus:outline-none focus:ring-2 focus:ring-[#6D4AFF]/20 focus:border-[#6D4AFF] transition-all"
+              className="w-full pl-12 pr-28 py-3.5 themed-card border b-skin/90 rounded-xl shadow-xs text-sm sm:text-base t-ink placeholder:t-faint focus:outline-none focus:ring-2 focus:ring-[var(--brand-600)]/20 focus:border-[var(--brand-600)] transition-all"
             />
             {searchQuery && (
               <button
@@ -147,11 +151,11 @@ export const HomeView: React.FC = () => {
                 onClick={() => setSelectedCategoryFilter(cat.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium rounded-lg border transition-all whitespace-nowrap active:scale-[0.98] ${
                   isSelected
-                    ? 'bg-[#6D4AFF]/10 border-[#6D4AFF] text-[#6D4AFF] shadow-xs'
+                    ? 'bg-[var(--brand-600)]/10 border-[var(--brand-600)] text-[var(--brand-600)] shadow-xs'
                     : 'themed-card b-skin-strong t-ink-2 hover:border-neutral-300 hover:shadow-xs'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-[#6D4AFF]' : 't-muted'}`} />
+                <Icon className={`w-4 h-4 ${isSelected ? 'text-[var(--brand-600)]' : 't-muted'}`} />
                 <span>{cat.label}</span>
               </button>
             );
@@ -183,10 +187,10 @@ export const HomeView: React.FC = () => {
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
                   <div className="flex items-center gap-2.5">
                     <span className="flex h-2.5 w-2.5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#6D4AFF] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#6D4AFF]"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--brand-600)] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--brand-600)]"></span>
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#6D4AFF]">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--brand-600)]">
                       Live Near You
                     </span>
                   </div>
@@ -206,7 +210,7 @@ export const HomeView: React.FC = () => {
                 {/* Primary Issue Headline */}
                 <h2
                   onClick={() => setSelectedIssueId(featuredIssue.id)}
-                  className="text-2xl sm:text-3xl font-extrabold t-ink hover:text-[#6D4AFF] transition-colors cursor-pointer"
+                  className="text-2xl sm:text-3xl font-extrabold t-ink hover:text-[var(--brand-600)] transition-colors cursor-pointer"
                 >
                   ⚡ {featuredIssue.title}
                 </h2>
@@ -225,7 +229,7 @@ export const HomeView: React.FC = () => {
                   </div>
                   <div>
                     <span className="block text-xs t-muted font-medium">24h Acceleration</span>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-[#6D4AFF] tabular-nums flex items-center">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-600)] tabular-nums flex items-center">
                       +{featuredIssue.trendPercentage}%
                       <TrendingUp className="w-4 h-4 ml-1 inline" />
                     </span>
@@ -274,7 +278,7 @@ export const HomeView: React.FC = () => {
                     className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
                       userConfirmations[featuredIssue.id] === 'experienced'
                         ? 'bg-emerald-600 text-white border-emerald-600'
-                        : 'themed-card t-ink-2 b-skin hover:bg-[#6D4AFF]/10'
+                        : 'themed-card t-ink-2 b-skin hover:bg-[var(--brand-600)]/10'
                     }`}
                   >
                     ✓ I'm experiencing this too ({featuredIssue.confirmationsCount})
@@ -284,7 +288,7 @@ export const HomeView: React.FC = () => {
                     className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
                       userConfirmations[featuredIssue.id] === 'not_affected'
                         ? 'bg-neutral-800 text-white border-neutral-800'
-                        : 'themed-card t-ink-2 b-skin hover:bg-[#6D4AFF]/10'
+                        : 'themed-card t-ink-2 b-skin hover:bg-[var(--brand-600)]/10'
                     }`}
                   >
                     Not affected
@@ -293,7 +297,7 @@ export const HomeView: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedIssueId(featuredIssue.id)}
-                  className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#6D4AFF] hover:text-[#5835ea] group"
+                  className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-[var(--brand-600)] hover:text-[var(--brand-700)] group"
                 >
                   <span>Open Full Signal Dossier</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -309,28 +313,23 @@ export const HomeView: React.FC = () => {
             <div className="themed-card rounded-2xl border b-skin-strong p-6 shadow-xs card-lift">
               <div className="flex items-center justify-between pb-3 border-b b-skin">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#6D4AFF]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[var(--brand-600)]"></span>
                   <span className="text-xs font-bold uppercase tracking-wider t-ink">
                     AI Signal Intelligence
                   </span>
                 </div>
-                <span className="text-[11px] t-muted font-mono">94% Confidence</span>
+                <span className="text-[11px] t-muted font-mono">{aiInsightsData.confidence} Confidence</span>
               </div>
 
               <div className="mt-4 space-y-3">
-                <div className="p-3 bg-[#6D4AFF]/5 rounded-xl border border-[#6D4AFF]/10">
-                  <div className="text-xs font-semibold text-[#6D4AFF]">Cluster Detected</div>
-                  <p className="text-xs t-ink-2 mt-1 leading-relaxed">
-                    Automated spatial grouping correlated 1,248 complaints across 7 feeder zones without exposing personal voter or resident identities.
-                  </p>
-                </div>
-
-                <div className="p-3 themed-muted rounded-xl border b-skin">
-                  <div className="text-xs font-semibold t-ink-2">Under-reported Signal</div>
-                  <p className="text-xs t-ink-2 mt-1">
-                    Anomalous silence detected in 2nd Avenue informal market sector; potential priority follow-up needed.
-                  </p>
-                </div>
+                {aiInsightsData.insights.map((insight: any, idx: number) => (
+                  <div key={idx} className={`p-3 rounded-xl border ${insight.highlight ? 'bg-[var(--brand-600)]/5 border-[var(--brand-600)]/10' : 'themed-muted b-skin'}`}>
+                    <div className={`text-xs font-semibold ${insight.highlight ? 'text-[var(--brand-600)]' : 't-ink-2'}`}>{insight.type}</div>
+                    <p className="text-xs t-ink-2 mt-1 leading-relaxed">
+                      {insight.desc}
+                    </p>
+                  </div>
+                ))}
               </div>
 
               <button
@@ -348,29 +347,24 @@ export const HomeView: React.FC = () => {
                 <span className="text-xs font-bold uppercase tracking-wider t-ink">
                   Verified Authority Dispatches
                 </span>
-                <span className="text-[11px] text-emerald-600 font-medium">3 active</span>
+                <span className="text-[11px] text-emerald-600 font-medium">{officialDispatches.length} active</span>
               </div>
 
               <div className="mt-3 space-y-3 text-xs">
-                <div className="pb-3 border-b b-skin last:border-0 last:pb-0">
-                  <div className="flex items-center justify-between text-[11px] t-faint mb-1">
-                    <span className="font-semibold t-ink-2">Chennai MetroWater</span>
-                    <span>15:10 IST</span>
+                {officialDispatches.map((dispatch: any) => (
+                  <div key={dispatch.id} className="pb-3 border-b b-skin last:border-0 last:pb-0">
+                    <div className="flex items-center justify-between text-[11px] t-faint mb-1">
+                      <span className="font-semibold t-ink-2">{dispatch.region}</span>
+                      <span>{dispatch.time}</span>
+                    </div>
+                    <p className="t-ink-2 line-clamp-2">
+                      {dispatch.msg}
+                    </p>
                   </div>
-                  <p className="t-ink-2 line-clamp-2">
-                    Replacement gasket fitted for 600mm main conduit; booster pumps restarting.
-                  </p>
-                </div>
-
-                <div className="pb-3 border-b b-skin last:border-0 last:pb-0">
-                  <div className="flex items-center justify-between text-[11px] t-faint mb-1">
-                    <span className="font-semibold t-ink-2">MTC Traffic Control</span>
-                    <span>14:20 IST</span>
-                  </div>
-                  <p className="t-ink-2 line-clamp-2">
-                    5 additional electric buses deployed to clear Perambur crowd build-up.
-                  </p>
-                </div>
+                ))}
+                {officialDispatches.length === 0 && (
+                  <div className="t-faint text-center py-2">No active dispatches.</div>
+                )}
               </div>
             </div>
           </div>
@@ -388,7 +382,7 @@ export const HomeView: React.FC = () => {
 
             <button
               onClick={() => setActiveView('trending')}
-              className="text-xs font-semibold text-[#6D4AFF] hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-[var(--brand-600)] hover:underline flex items-center gap-1"
             >
               <span>View Trending Metrics</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -413,7 +407,7 @@ export const HomeView: React.FC = () => {
               return (
                 <div
                   key={issue.id}
-                  className="themed-card rounded-xl border b-skin-strong p-5 shadow-xs hover:border-[#6D4AFF]/50 hover:shadow-sm transition-all flex flex-col justify-between group card-lift"
+                  className="themed-card rounded-xl border b-skin-strong p-5 shadow-xs hover:border-[var(--brand-600)]/50 hover:shadow-sm transition-all flex flex-col justify-between group card-lift"
                 >
                   <div>
                     {/* Header info */}
@@ -438,7 +432,7 @@ export const HomeView: React.FC = () => {
                     {/* Title */}
                     <h4
                       onClick={() => setSelectedIssueId(issue.id)}
-                      className="text-base font-bold t-ink group-hover:text-[#6D4AFF] transition-colors cursor-pointer line-clamp-2"
+                      className="text-base font-bold t-ink group-hover:text-[var(--brand-600)] transition-colors cursor-pointer line-clamp-2"
                     >
                       {issue.title}
                     </h4>
@@ -460,7 +454,7 @@ export const HomeView: React.FC = () => {
                       </div>
                       <div>
                         <span className="t-faint text-[10px] block">Velocity</span>
-                        <span className="font-bold text-[#6D4AFF] tabular-nums">
+                        <span className="font-bold text-[var(--brand-600)] tabular-nums">
                           +{issue.trendPercentage}%
                         </span>
                       </div>
@@ -472,7 +466,7 @@ export const HomeView: React.FC = () => {
                         className={`px-2.5 py-1 rounded text-xs font-medium border transition-colors ${
                           isConfirmed
                             ? 'bg-emerald-600 text-white border-emerald-600'
-                            : 'themed-muted t-ink-2 b-skin hover:bg-[#6D4AFF]/10'
+                            : 'themed-muted t-ink-2 b-skin hover:bg-[var(--brand-600)]/10'
                         }`}
                       >
                         {isConfirmed ? '✓ Confirmed' : '+ Confirm'}
@@ -480,7 +474,7 @@ export const HomeView: React.FC = () => {
 
                       <button
                         onClick={() => setSelectedIssueId(issue.id)}
-                        className="p-1.5 t-faint hover:t-ink-2 rounded hover:bg-[#6D4AFF]/10"
+                        className="p-1.5 t-faint hover:t-ink-2 rounded hover:bg-[var(--brand-600)]/10"
                         title="View details"
                       >
                         <ChevronRight className="w-4 h-4" />
